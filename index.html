@@ -1,1 +1,668 @@
-Hello Weird!!
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ruje Alfon - Frontend Web Developer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    animation: {
+                        'fade-in': 'fadeIn 0.6s ease-in-out',
+                        'slide-up': 'slideUp 0.6s ease-out',
+                        'slide-left': 'slideLeft 0.8s ease-out',
+                        'slide-right': 'slideRight 0.8s ease-out',
+                        'bounce-in': 'bounceIn 0.8s ease-out',
+                        'float': 'float 3s ease-in-out infinite',
+                        'glow': 'glow 2s ease-in-out infinite alternate',
+                        'scale-in': 'scaleIn 0.6s ease-out',
+                        'rotate-in': 'rotateIn 0.8s ease-out',
+                        'flip-in': 'flipIn 0.7s ease-out',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideUp: {
+                            '0%': { opacity: '0', transform: 'translateY(50px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        slideLeft: {
+                            '0%': { opacity: '0', transform: 'translateX(-50px)' },
+                            '100%': { opacity: '1', transform: 'translateX(0)' },
+                        },
+                        slideRight: {
+                            '0%': { opacity: '0', transform: 'translateX(50px)' },
+                            '100%': { opacity: '1', transform: 'translateX(0)' },
+                        },
+                        bounceIn: {
+                            '0%': { opacity: '0', transform: 'scale(0.3)' },
+                            '50%': { opacity: '1', transform: 'scale(1.05)' },
+                            '70%': { transform: 'scale(0.9)' },
+                            '100%': { opacity: '1', transform: 'scale(1)' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        glow: {
+                            '0%': { boxShadow: '0 0 5px #3b82f6, 0 0 10px #3b82f6, 0 0 15px #3b82f6' },
+                            '100%': { boxShadow: '0 0 10px #3b82f6, 0 0 20px #3b82f6, 0 0 30px #3b82f6' },
+                        },
+                        scaleIn: {
+                            '0%': { opacity: '0', transform: 'scale(0.8)' },
+                            '100%': { opacity: '1', transform: 'scale(1)' },
+                        },
+                        rotateIn: {
+                            '0%': { opacity: '0', transform: 'rotate(-10deg) scale(0.8)' },
+                            '100%': { opacity: '1', transform: 'rotate(0deg) scale(1)' },
+                        },
+                        flipIn: {
+                            '0%': { opacity: '0', transform: 'rotateY(-90deg)' },
+                            '100%': { opacity: '1', transform: 'rotateY(0deg)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Custom scroll animations */
+        .scroll-animate {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease-out;
+        }
+        .scroll-animate.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .parallax {
+            transition: transform 0.1s ease-out;
+        }
+        /* Staggered animation delays */
+        .stagger-1 { animation-delay: 0.1s; }
+        .stagger-2 { animation-delay: 0.2s; }
+        .stagger-3 { animation-delay: 0.3s; }
+        .stagger-4 { animation-delay: 0.4s; }
+        .stagger-5 { animation-delay: 0.5s; }
+        .stagger-6 { animation-delay: 0.6s; }
+        .stagger-7 { animation-delay: 0.7s; }
+        .stagger-8 { animation-delay: 0.8s; }
+    </style>
+</head>
+<body class="bg-gray-900 text-white overflow-x-hidden">
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full bg-gray-900/95 backdrop-blur-sm z-50 border-b border-gray-700">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <div class="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+                    Ruje Alfon
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#about" class="hover:text-blue-400 transition-colors duration-300">About</a>
+                    <a href="#projects" class="hover:text-blue-400 transition-colors duration-300">Projects</a>
+                    <a href="#experience" class="hover:text-blue-400 transition-colors duration-300">Experience</a>
+                    <a href="#contact" class="hover:text-blue-400 transition-colors duration-300">Contact</a>
+                </div>
+                <button class="md:hidden" id="mobile-menu-button">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div class="md:hidden hidden" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 bg-gray-800">
+                <a href="#about" class="block px-3 py-2 hover:bg-gray-700 rounded">About</a>
+                <a href="#projects" class="block px-3 py-2 hover:bg-gray-700 rounded">Projects</a>
+                <a href="#experience" class="block px-3 py-2 hover:bg-gray-700 rounded">Experience</a>
+                <a href="#contact" class="block px-3 py-2 hover:bg-gray-700 rounded">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="min-h-screen flex items-center justify-center relative overflow-hidden">
+        <!-- Animated background -->
+        <div class="absolute inset-0 opacity-20 parallax" id="hero-bg">
+            <div class="absolute top-20 left-10 w-72 h-72 bg-blue-500 rounded-full mix-blend-multiply filter blur-xl animate-float"></div>
+            <div class="absolute top-40 right-10 w-72 h-72 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl animate-float" style="animation-delay: 2s;"></div>
+            <div class="absolute -bottom-8 left-20 w-72 h-72 bg-pink-500 rounded-full mix-blend-multiply filter blur-xl animate-float" style="animation-delay: 4s;"></div>
+        </div>
+
+        <div class="text-center z-10 px-4">
+            <h1 class="text-5xl md:text-7xl font-bold mb-6 animate-bounce-in">
+                <span class="bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent">
+                    Ruje Alfon
+                </span>
+            </h1>
+            <h2 class="text-2xl md:text-3xl text-gray-300 mb-8 animate-slide-up stagger-1">
+                Senior Frontend Web Developer
+            </h2>
+            <p class="text-lg text-gray-400 mb-8 max-w-2xl mx-auto animate-slide-up stagger-2">
+                Creating dynamic, rich and interesting web portals with modern technologies.
+                Specialized in Vue.js, JavaScript, and building user-friendly applications.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center animate-slide-up stagger-3">
+                <a href="#projects" class="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 px-8 py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 hover:animate-glow">
+                    View My Work
+                </a>
+                <a href="#contact" class="border border-gray-400 hover:border-white px-8 py-3 rounded-lg font-semibold transition-all duration-300 hover:bg-white hover:text-gray-900">
+                    Get In Touch
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 px-4">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-16 bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent scroll-animate">
+                About Me
+            </h2>
+            <div class="grid md:grid-cols-3 gap-12 items-center">
+                <!-- Profile Image -->
+                <div class="md:col-span-1 flex justify-center scroll-animate">
+                    <div class="relative group">
+                        <div class="absolute -inset-1 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 rounded-full blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-pulse"></div>
+                        <img
+                            src="https://rujealfon.github.io/images/profile.jpeg"
+                            alt="Ruje Alfon - Frontend Web Developer"
+                            class="relative w-64 h-64 md:w-80 md:h-80 rounded-full object-cover border-4 border-gray-700 shadow-2xl transform transition-all duration-500 group-hover:scale-105 group-hover:rotate-3"
+                        >
+                        <div class="absolute inset-0 rounded-full bg-gradient-to-tr from-blue-500/20 to-purple-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    </div>
+                </div>
+
+                <!-- About Text -->
+                <div class="md:col-span-2 space-y-6 scroll-animate">
+                    <p class="text-gray-300 text-lg leading-relaxed">
+                        Passionate frontend developer with 10+ years of experience crafting exceptional digital experiences.
+                        I transform complex ideas into intuitive, responsive web applications using modern frameworks like Vue.js,
+                        cutting-edge CSS techniques, and performance-optimized JavaScript.
+                    </p>
+                    <p class="text-gray-300 text-lg leading-relaxed">
+                        From concept to deployment, I thrive in agile environments where collaboration meets innovation.
+                        My expertise spans the entire development lifecycle - architecting scalable component systems,
+                        implementing pixel-perfect designs, and ensuring seamless user experiences across all devices and platforms.
+                    </p>
+                    <p class="text-gray-300 text-lg leading-relaxed">
+                        I'm passionate about staying ahead of the curve with emerging technologies, accessibility standards,
+                        and performance optimization techniques that make the web faster and more inclusive for everyone.
+                    </p>
+                    <div class="flex flex-wrap gap-4 pt-4">
+                        <div class="flex items-center gap-2 text-blue-400">
+                            <i class="fas fa-code"></i>
+                            <span>Frontend Specialist</span>
+                        </div>
+                        <div class="flex items-center gap-2 text-green-400">
+                            <i class="fas fa-mobile-alt"></i>
+                            <span>Mobile Development</span>
+                        </div>
+                        <div class="flex items-center gap-2 text-purple-400">
+                            <i class="fas fa-paint-brush"></i>
+                            <span>UI/UX Design</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Skills Grid -->
+            <div class="mt-16">
+                <h3 class="text-2xl font-bold text-center mb-8 text-gray-300 scroll-animate">Technical Skills</h3>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div class="bg-gray-800 p-4 rounded-lg border border-gray-700 hover:border-blue-500 transition-colors duration-300 scroll-animate stagger-1">
+                        <i class="fab fa-js-square text-yellow-400 text-2xl mb-2"></i>
+                        <h3 class="font-semibold">JavaScript</h3>
+                    </div>
+                    <div class="bg-gray-800 p-4 rounded-lg border border-gray-700 hover:border-green-500 transition-colors duration-300 scroll-animate stagger-2">
+                        <i class="fab fa-vuejs text-green-400 text-2xl mb-2"></i>
+                        <h3 class="font-semibold">Vue.js</h3>
+                    </div>
+                    <div class="bg-gray-800 p-4 rounded-lg border border-gray-700 hover:border-orange-500 transition-colors duration-300 scroll-animate stagger-3">
+                        <i class="fab fa-html5 text-orange-400 text-2xl mb-2"></i>
+                        <h3 class="font-semibold">HTML5</h3>
+                    </div>
+                    <div class="bg-gray-800 p-4 rounded-lg border border-gray-700 hover:border-blue-500 transition-colors duration-300 scroll-animate stagger-4">
+                        <i class="fab fa-css3-alt text-blue-400 text-2xl mb-2"></i>
+                        <h3 class="font-semibold">CSS3</h3>
+                    </div>
+                    <div class="bg-gray-800 p-4 rounded-lg border border-gray-700 hover:border-purple-500 transition-colors duration-300 scroll-animate stagger-5">
+                        <i class="fas fa-code text-purple-400 text-2xl mb-2"></i>
+                        <h3 class="font-semibold">jQuery</h3>
+                    </div>
+                    <div class="bg-gray-800 p-4 rounded-lg border border-gray-700 hover:border-yellow-500 transition-colors duration-300 scroll-animate stagger-6">
+                        <i class="fab fa-aws text-yellow-400 text-2xl mb-2"></i>
+                        <h3 class="font-semibold">AWS</h3>
+                    </div>
+                    <div class="bg-gray-800 p-4 rounded-lg border border-gray-700 hover:border-green-500 transition-colors duration-300 scroll-animate stagger-7">
+                        <i class="fab fa-node-js text-green-400 text-2xl mb-2"></i>
+                        <h3 class="font-semibold">Node.js</h3>
+                    </div>
+                    <div class="bg-gray-800 p-4 rounded-lg border border-gray-700 hover:border-red-500 transition-colors duration-300 scroll-animate stagger-8">
+                        <i class="fas fa-database text-red-400 text-2xl mb-2"></i>
+                        <h3 class="font-semibold">MySQL</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-20 px-4 bg-gray-800/50">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-16 bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent scroll-animate">
+                Featured Projects
+            </h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- PizzaHut -->
+                <div class="bg-gray-800 rounded-lg overflow-hidden border border-gray-700 hover:border-blue-500 transition-all duration-300 transform hover:scale-105 group scroll-animate stagger-1">
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-xl font-semibold text-blue-400">PizzaHut</h3>
+                            <a href="https://www.pizzahut.com.au" target="_blank" class="text-gray-400 hover:text-white transition-colors">
+                                <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </div>
+                        <p class="text-gray-300 mb-4">Maintain Web, Android and iOS App for PizzaHut Australia</p>
+                        <p class="text-sm text-gray-400 mb-4">Front-End Developer • March 2020</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-blue-500/20 text-blue-400 px-2 py-1 rounded text-xs">Web</span>
+                            <span class="bg-green-500/20 text-green-400 px-2 py-1 rounded text-xs">Mobile</span>
+                            <span class="bg-purple-500/20 text-purple-400 px-2 py-1 rounded text-xs">Maintenance</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Scoot Gauge Change -->
+                <div class="bg-gray-800 rounded-lg overflow-hidden border border-gray-700 hover:border-green-500 transition-all duration-300 transform hover:scale-105 group scroll-animate stagger-2">
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-xl font-semibold text-green-400">Scoot Gauge Change</h3>
+                            <a href="https://gaugechange.flyscootca.com" target="_blank" class="text-gray-400 hover:text-white transition-colors">
+                                <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </div>
+                        <p class="text-gray-300 mb-4">Automated gauge change process flow application built with Nuxt.js</p>
+                        <p class="text-sm text-gray-400 mb-4">Front-End/UI Developer • October 2019</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-green-500/20 text-green-400 px-2 py-1 rounded text-xs">Nuxt.js</span>
+                            <span class="bg-blue-500/20 text-blue-400 px-2 py-1 rounded text-xs">Automation</span>
+                            <span class="bg-purple-500/20 text-purple-400 px-2 py-1 rounded text-xs">UI/UX</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Galleon PH -->
+                <div class="bg-gray-800 rounded-lg overflow-hidden border border-gray-700 hover:border-purple-500 transition-all duration-300 transform hover:scale-105 group scroll-animate stagger-3">
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-xl font-semibold text-purple-400">Galleon PH</h3>
+                            <a href="http://galleon.ph" target="_blank" class="text-gray-400 hover:text-white transition-colors">
+                                <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </div>
+                        <p class="text-gray-300 mb-4">E-commerce platform for products not available in the Philippines</p>
+                        <p class="text-sm text-gray-400 mb-4">Full-Stack Developer • January 2019</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-purple-500/20 text-purple-400 px-2 py-1 rounded text-xs">E-commerce</span>
+                            <span class="bg-blue-500/20 text-blue-400 px-2 py-1 rounded text-xs">Full-Stack</span>
+                            <span class="bg-green-500/20 text-green-400 px-2 py-1 rounded text-xs">PHP</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TripZeeker -->
+                <div class="bg-gray-800 rounded-lg overflow-hidden border border-gray-700 hover:border-yellow-500 transition-all duration-300 transform hover:scale-105 group scroll-animate stagger-4">
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-xl font-semibold text-yellow-400">TripZeeker</h3>
+                            <a href="http://tripzeeker.com" target="_blank" class="text-gray-400 hover:text-white transition-colors">
+                                <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </div>
+                        <p class="text-gray-300 mb-4">Online Bazaar of Travel Experiences</p>
+                        <p class="text-sm text-gray-400 mb-4">Full-Stack Developer • January 2018</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-yellow-500/20 text-yellow-400 px-2 py-1 rounded text-xs">Travel</span>
+                            <span class="bg-blue-500/20 text-blue-400 px-2 py-1 rounded text-xs">Marketplace</span>
+                            <span class="bg-green-500/20 text-green-400 px-2 py-1 rounded text-xs">Full-Stack</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Jobayan -->
+                <div class="bg-gray-800 rounded-lg overflow-hidden border border-gray-700 hover:border-red-500 transition-all duration-300 transform hover:scale-105 group scroll-animate stagger-5">
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-xl font-semibold text-red-400">Jobayan</h3>
+                            <a href="http://jobayan.com" target="_blank" class="text-gray-400 hover:text-white transition-colors">
+                                <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </div>
+                        <p class="text-gray-300 mb-4">Fastest Growing Job Community, the Millennial Way to Find Jobs</p>
+                        <p class="text-sm text-gray-400 mb-4">Full-Stack Developer • January 2017</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-red-500/20 text-red-400 px-2 py-1 rounded text-xs">Job Portal</span>
+                            <span class="bg-blue-500/20 text-blue-400 px-2 py-1 rounded text-xs">Community</span>
+                            <span class="bg-green-500/20 text-green-400 px-2 py-1 rounded text-xs">Full-Stack</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ShippingCart -->
+                <div class="bg-gray-800 rounded-lg overflow-hidden border border-gray-700 hover:border-indigo-500 transition-all duration-300 transform hover:scale-105 group scroll-animate stagger-6">
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-xl font-semibold text-indigo-400">ShippingCart</h3>
+                            <a href="http://www.shippingcart.com" target="_blank" class="text-gray-400 hover:text-white transition-colors">
+                                <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </div>
+                        <p class="text-gray-300 mb-4">Large scale website built with Node.js framework</p>
+                        <p class="text-sm text-gray-400 mb-4">Front-End Developer • October 2014</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-indigo-500/20 text-indigo-400 px-2 py-1 rounded text-xs">Node.js</span>
+                            <span class="bg-blue-500/20 text-blue-400 px-2 py-1 rounded text-xs">Shipping</span>
+                            <span class="bg-green-500/20 text-green-400 px-2 py-1 rounded text-xs">Frontend</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="py-20 px-4">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-16 bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent scroll-animate">
+                Experience
+            </h2>
+            <div class="space-y-12">
+                <!-- BCS Technology -->
+                <div class="bg-gray-800 rounded-lg p-8 border border-gray-700 hover:border-blue-500 transition-all duration-300 scroll-animate stagger-1">
+                    <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
+                        <div>
+                            <h3 class="text-2xl font-semibold text-blue-400">Senior Front-end Web Developer</h3>
+                            <h4 class="text-xl text-gray-300 mt-1">BCS Technology International Pty Ltd</h4>
+                        </div>
+                        <div class="text-gray-400 mt-2 md:mt-0">
+                            <i class="fas fa-calendar-alt mr-2"></i>
+                            April 2019 - Present
+                        </div>
+                    </div>
+                    <ul class="text-gray-300 space-y-2">
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-400 mr-3 mt-1"></i>
+                            Developing user-facing applications using Vue.js
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-400 mr-3 mt-1"></i>
+                            Building modular and reusable components and libraries
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-400 mr-3 mt-1"></i>
+                            Optimizing applications for performance
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-400 mr-3 mt-1"></i>
+                            API Integration from multiple services and state management
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-400 mr-3 mt-1"></i>
+                            Conceptualisation, planning and implementation of frontend architectures
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Sterling Technologies -->
+                <div class="bg-gray-800 rounded-lg p-8 border border-gray-700 hover:border-purple-500 transition-all duration-300 scroll-animate stagger-2">
+                    <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
+                        <div>
+                            <h3 class="text-2xl font-semibold text-purple-400">Web Developer</h3>
+                            <h4 class="text-xl text-gray-300 mt-1">Sterling Technologies</h4>
+                        </div>
+                        <div class="text-gray-400 mt-2 md:mt-0">
+                            <i class="fas fa-calendar-alt mr-2"></i>
+                            March 2014 - April 2019
+                        </div>
+                    </div>
+                    <ul class="text-gray-300 space-y-2">
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-400 mr-3 mt-1"></i>
+                            Developing and maintaining front-end functionality of websites
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-400 mr-3 mt-1"></i>
+                            Writing cross-browser compliant XHTML, CSS & JavaScript
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-400 mr-3 mt-1"></i>
+                            Creating websites that are user-friendly, effective and appealing
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-400 mr-3 mt-1"></i>
+                            Optimizing web assets for optimal speed and performance
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Cyber City Teleservices -->
+                <div class="bg-gray-800 rounded-lg p-8 border border-gray-700 hover:border-green-500 transition-all duration-300 scroll-animate stagger-3">
+                    <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
+                        <div>
+                            <h3 class="text-2xl font-semibold text-green-400">MIS Specialist</h3>
+                            <h4 class="text-xl text-gray-300 mt-1">Cyber City Teleservices</h4>
+                        </div>
+                        <div class="text-gray-400 mt-2 md:mt-0">
+                            <i class="fas fa-calendar-alt mr-2"></i>
+                            February 2011 - April 2013
+                        </div>
+                    </div>
+                    <ul class="text-gray-300 space-y-2">
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-400 mr-3 mt-1"></i>
+                            Quality assurance review through multiple QA programs and website validations
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-400 mr-3 mt-1"></i>
+                            Maintaining data quality, validity, verification and compliance
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-400 mr-3 mt-1"></i>
+                            Generated and managed 200+ reports daily and weekly for 50+ clients
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 px-4 bg-gray-800/50">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-4xl font-bold mb-8 bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent scroll-animate">
+                Let's Work Together
+            </h2>
+            <p class="text-xl text-gray-300 mb-12 scroll-animate stagger-1">
+                Ready to bring your ideas to life? Let's create something amazing together.
+            </p>
+            <div class="grid md:grid-cols-3 gap-8 mb-12">
+                <div class="bg-gray-800 p-6 rounded-lg border border-gray-700 hover:border-blue-500 transition-all duration-300 transform hover:scale-105 scroll-animate stagger-2">
+                    <i class="fas fa-envelope text-blue-400 text-3xl mb-4"></i>
+                    <h3 class="text-xl font-semibold mb-2">Email</h3>
+                    <a href="mailto:rujealfon@gmail.com" class="text-gray-300 hover:text-blue-400 transition-colors">
+                        rujealfon@gmail.com
+                    </a>
+                </div>
+                <div class="bg-gray-800 p-6 rounded-lg border border-gray-700 hover:border-green-500 transition-all duration-300 transform hover:scale-105 scroll-animate stagger-3">
+                    <i class="fas fa-phone text-green-400 text-3xl mb-4"></i>
+                    <h3 class="text-xl font-semibold mb-2">Phone</h3>
+                    <a href="tel:+639053801178" class="text-gray-300 hover:text-green-400 transition-colors">
+                        +639053801178
+                    </a>
+                </div>
+                <div class="bg-gray-800 p-6 rounded-lg border border-gray-700 hover:border-purple-500 transition-all duration-300 transform hover:scale-105 scroll-animate stagger-4">
+                    <i class="fas fa-globe text-purple-400 text-3xl mb-4"></i>
+                    <h3 class="text-xl font-semibold mb-2">Website</h3>
+                    <a href="http://rujealfon.github.io" target="_blank" class="text-gray-300 hover:text-purple-400 transition-colors">
+                        rujealfon.github.io
+                    </a>
+                </div>
+            </div>
+            <a href="mailto:rujealfon@gmail.com" class="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105 hover:animate-glow inline-block scroll-animate stagger-5">
+                Start a Project
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 px-4 border-t border-gray-700">
+        <div class="max-w-6xl mx-auto text-center">
+            <p class="text-gray-400 scroll-animate">
+                © 2024 Ruje Alfon. All rights reserved. Built with ❤️ and Tailwind CSS.
+            </p>
+        </div>
+    </footer>
+
+    <!-- JavaScript for animations and interactions -->
+    <script>
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu when clicking on a link
+        const mobileMenuLinks = mobileMenu.querySelectorAll('a');
+        mobileMenuLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Parallax effect for hero background
+        const heroBg = document.getElementById('hero-bg');
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const rate = scrolled * -0.5;
+            heroBg.style.transform = `translateY(${rate}px)`;
+        });
+
+        // Enhanced scroll animations with Intersection Observer
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate');
+
+                    // Add different animation classes based on element type
+                    if (entry.target.classList.contains('stagger-1')) {
+                        entry.target.style.animationDelay = '0.1s';
+                    } else if (entry.target.classList.contains('stagger-2')) {
+                        entry.target.style.animationDelay = '0.2s';
+                    } else if (entry.target.classList.contains('stagger-3')) {
+                        entry.target.style.animationDelay = '0.3s';
+                    } else if (entry.target.classList.contains('stagger-4')) {
+                        entry.target.style.animationDelay = '0.4s';
+                    } else if (entry.target.classList.contains('stagger-5')) {
+                        entry.target.style.animationDelay = '0.5s';
+                    } else if (entry.target.classList.contains('stagger-6')) {
+                        entry.target.style.animationDelay = '0.6s';
+                    } else if (entry.target.classList.contains('stagger-7')) {
+                        entry.target.style.animationDelay = '0.7s';
+                    } else if (entry.target.classList.contains('stagger-8')) {
+                        entry.target.style.animationDelay = '0.8s';
+                    }
+                }
+            });
+        }, observerOptions);
+
+        // Observe all elements with scroll-animate class
+        document.querySelectorAll('.scroll-animate').forEach(element => {
+            observer.observe(element);
+        });
+
+        // Add dynamic navbar background on scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('bg-gray-900');
+                nav.classList.remove('bg-gray-900/95');
+            } else {
+                nav.classList.remove('bg-gray-900');
+                nav.classList.add('bg-gray-900/95');
+            }
+        });
+
+        // Scroll progress indicator
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+
+            // You can use this scrolled percentage for progress bars or other animations
+            // For example, you could add a progress bar to the navigation
+        });
+
+        // Advanced scroll-based animations for specific elements
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+
+            // Parallax effect for floating background shapes
+            const floatingShapes = document.querySelectorAll('.animate-float');
+            floatingShapes.forEach((shape, index) => {
+                const speed = (index + 1) * 0.1;
+                shape.style.transform = `translateY(${scrolled * speed}px)`;
+            });
+        });
+
+        // Add entrance animations to cards when they become visible
+        const cardObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0) scale(1)';
+                    }, index * 100); // Stagger the animations
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        });
+
+        // Observe project cards and experience cards
+        document.querySelectorAll('.group, .bg-gray-800.rounded-lg').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px) scale(0.95)';
+            card.style.transition = 'all 0.6s ease-out';
+            cardObserver.observe(card);
+        });
+    </script>
+</body>
+</html>
