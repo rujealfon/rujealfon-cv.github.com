@@ -9,6 +9,21 @@
         tailwind.config = {
             theme: {
                 extend: {
+                    colors: {
+                        // Nuxt official color palette
+                        'nuxt-green': '#00DC82',
+                        'nuxt-dark': '#020420',
+                        'nuxt-white': '#FFFFFF',
+                        'nuxt-gray': '#374151',
+                        'nuxt-gray-light': '#6B7280',
+                        'nuxt-gray-lighter': '#9CA3AF',
+                        'nuxt-gray-dark': '#111827',
+                        'nuxt-success': '#10B981',
+                        'nuxt-warning': '#F59E0B',
+                        'nuxt-error': '#EF4444',
+                        'nuxt-info': '#3B82F6',
+                        'nuxt-done': '#8b5cf6',
+                    },
                     animation: {
                         'fade-in': 'fadeIn 0.6s ease-in-out',
                         'slide-up': 'slideUp 0.6s ease-out',
@@ -20,6 +35,9 @@
                         'scale-in': 'scaleIn 0.6s ease-out',
                         'rotate-in': 'rotateIn 0.8s ease-out',
                         'flip-in': 'flipIn 0.7s ease-out',
+                        'spin': 'spin 20s linear infinite',
+                        'pulse': 'pulse 10s linear infinite',
+                        'bounce': 'bounce 3s linear infinite',
                     },
                     keyframes: {
                         fadeIn: {
@@ -49,8 +67,8 @@
                             '50%': { transform: 'translateY(-10px)' },
                         },
                         glow: {
-                            '0%': { boxShadow: '0 0 5px #3b82f6, 0 0 10px #3b82f6, 0 0 15px #3b82f6' },
-                            '100%': { boxShadow: '0 0 10px #3b82f6, 0 0 20px #3b82f6, 0 0 30px #3b82f6' },
+                            '0%': { boxShadow: '0 0 5px #1f6feb, 0 0 10px #1f6feb, 0 0 15px #1f6feb' },
+                            '100%': { boxShadow: '0 0 10px #1f6feb, 0 0 20px #1f6feb, 0 0 30px #1f6feb' },
                         },
                         scaleIn: {
                             '0%': { opacity: '0', transform: 'scale(0.8)' },
@@ -63,7 +81,21 @@
                         flipIn: {
                             '0%': { opacity: '0', transform: 'rotateY(-90deg)' },
                             '100%': { opacity: '1', transform: 'rotateY(0deg)' },
-                        }
+                        },
+                        spin: {
+                            '0%': { transform: 'rotate(0deg)' },
+                            '100%': { transform: 'rotate(360deg)' },
+                        },
+                        pulse: {
+                            '0%': { opacity: '1' },
+                            '50%': { opacity: '0.5' },
+                            '100%': { opacity: '1' },
+                        },
+                        bounce: {
+                            '0%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                            '100%': { transform: 'translateY(0)' },
+                        },
                     }
                 }
             }
@@ -93,21 +125,201 @@
         .stagger-6 { animation-delay: 0.6s; }
         .stagger-7 { animation-delay: 0.7s; }
         .stagger-8 { animation-delay: 0.8s; }
+
+        /* Additional Nuxt colors for gradients */
+        :root {
+            --nuxt-done: #8b5cf6;
+        }
+
+        /* Timeline styles */
+        .timeline-item {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease-out;
+        }
+
+        .timeline-item.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .timeline-node {
+            box-shadow: 0 0 20px rgba(0, 220, 130, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        .timeline-node:hover {
+            transform: scale(1.2);
+            box-shadow: 0 0 30px rgba(0, 220, 130, 0.8);
+        }
+
+        /* Mobile responsive timeline */
+        @media (max-width: 768px) {
+            .timeline-item .w-1\/2 {
+                width: 100% !important;
+            }
+
+            .timeline-item .w-full {
+                flex-direction: column;
+            }
+
+            .timeline-item .pr-8,
+            .timeline-item .pl-8 {
+                padding-left: 2rem !important;
+                padding-right: 1rem !important;
+            }
+
+            .timeline-item .text-right {
+                text-align: left !important;
+            }
+
+            .timeline-item .justify-end {
+                justify-content: flex-start !important;
+            }
+
+            .timeline-item .ml-2 {
+                margin-left: 0 !important;
+                margin-right: 0.5rem !important;
+            }
+
+            .timeline-item .absolute.right-1\/2,
+            .timeline-item .absolute.left-1\/2 {
+                left: -1rem !important;
+                right: auto !important;
+                width: 1rem !important;
+            }
+        }
+
+        /* Project card styles */
+        .project-card {
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        .project-card:hover {
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        .project-card .fas {
+            transition: all 0.3s ease;
+        }
+
+        .project-card:hover .fas {
+            filter: drop-shadow(0 0 10px currentColor);
+        }
+
+        /* Animated gradient backgrounds */
+        .project-card .h-48 {
+            background-size: 200% 200%;
+            animation: gradientShift 8s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        /* Button hover effects */
+        .project-card button:hover,
+        .project-card a:hover {
+            transform: translateY(-1px);
+        }
+
+        /* Typewriter effect */
+        .typewriter {
+            display: inline;
+            border-right: 2px solid #00DC82;
+            animation: blink-caret 1s infinite;
+            margin-left: 2px;
+        }
+
+        .typewriter-text {
+            display: inline;
+        }
+
+        .typewriter-container {
+            text-align: center;
+            width: 100%;
+        }
+
+        @keyframes blink-caret {
+            from, to { border-color: transparent; }
+            50% { border-color: #00DC82; }
+        }
+
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        /* Floating geometric symbols */
+        .floating-symbols {
+            position: absolute;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            opacity: 0.1;
+            animation: floatSymbol 6s ease-in-out infinite;
+            user-select: none;
+            pointer-events: none;
+        }
+
+        .floating-symbols.symbol-1 { animation-delay: 0s; }
+        .floating-symbols.symbol-2 { animation-delay: 1s; }
+        .floating-symbols.symbol-3 { animation-delay: 2s; }
+        .floating-symbols.symbol-4 { animation-delay: 3s; }
+        .floating-symbols.symbol-5 { animation-delay: 4s; }
+
+        @keyframes floatSymbol {
+            0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.1; }
+            25% { transform: translateY(-20px) rotate(90deg); opacity: 0.3; }
+            50% { transform: translateY(-10px) rotate(180deg); opacity: 0.2; }
+            75% { transform: translateY(-30px) rotate(270deg); opacity: 0.4; }
+        }
+
+        /* Highlighted text effect */
+        .highlight-text {
+            background: linear-gradient(135deg, #10B981, #00DC82);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+            display: inline-block;
+        }
+
+        .highlight-text::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(135deg, #10B981, #00DC82);
+            transform: scaleX(0);
+            animation: underlineExpand 1s ease-out 2s forwards;
+        }
+
+        @keyframes underlineExpand {
+            to { transform: scaleX(1); }
+        }
     </style>
 </head>
-<body class="bg-gray-900 text-white overflow-x-hidden">
+<body class="bg-nuxt-dark text-nuxt-white overflow-x-hidden">
     <!-- Navigation -->
-    <nav class="fixed top-0 w-full bg-gray-900/95 backdrop-blur-sm z-50 border-b border-gray-700">
+    <nav class="fixed top-0 w-full bg-nuxt-dark/95 backdrop-blur-sm z-50 border-b border-nuxt-gray">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center py-4">
-                <div class="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+                <div class="text-2xl font-bold bg-gradient-to-r from-nuxt-green to-nuxt-info bg-clip-text text-transparent">
                     Ruje Alfon
                 </div>
                 <div class="hidden md:flex space-x-8">
-                    <a href="#about" class="hover:text-blue-400 transition-colors duration-300">About</a>
-                    <a href="#projects" class="hover:text-blue-400 transition-colors duration-300">Projects</a>
-                    <a href="#experience" class="hover:text-blue-400 transition-colors duration-300">Experience</a>
-                    <a href="#contact" class="hover:text-blue-400 transition-colors duration-300">Contact</a>
+                    <a href="#about" class="hover:text-nuxt-info transition-colors duration-300">About</a>
+                    <a href="#projects" class="hover:text-nuxt-info transition-colors duration-300">Projects</a>
+                    <a href="#experience" class="hover:text-nuxt-info transition-colors duration-300">Experience</a>
+                    <a href="#contact" class="hover:text-nuxt-info transition-colors duration-300">Contact</a>
                 </div>
                 <button class="md:hidden" id="mobile-menu-button">
                     <i class="fas fa-bars text-xl"></i>
@@ -116,11 +328,11 @@
         </div>
         <!-- Mobile menu -->
         <div class="md:hidden hidden" id="mobile-menu">
-            <div class="px-2 pt-2 pb-3 space-y-1 bg-gray-800">
-                <a href="#about" class="block px-3 py-2 hover:bg-gray-700 rounded">About</a>
-                <a href="#projects" class="block px-3 py-2 hover:bg-gray-700 rounded">Projects</a>
-                <a href="#experience" class="block px-3 py-2 hover:bg-gray-700 rounded">Experience</a>
-                <a href="#contact" class="block px-3 py-2 hover:bg-gray-700 rounded">Contact</a>
+            <div class="px-2 pt-2 pb-3 space-y-1 bg-nuxt-white">
+                <a href="#about" class="block px-3 py-2 hover:bg-nuxt-gray-lighter rounded">About</a>
+                <a href="#projects" class="block px-3 py-2 hover:bg-nuxt-gray-lighter rounded">Projects</a>
+                <a href="#experience" class="block px-3 py-2 hover:bg-nuxt-gray-lighter rounded">Experience</a>
+                <a href="#contact" class="block px-3 py-2 hover:bg-nuxt-gray-lighter rounded">Contact</a>
             </div>
         </div>
     </nav>
@@ -128,30 +340,88 @@
     <!-- Hero Section -->
     <section class="min-h-screen flex items-center justify-center relative overflow-hidden">
         <!-- Animated background -->
-        <div class="absolute inset-0 opacity-20 parallax" id="hero-bg">
-            <div class="absolute top-20 left-10 w-72 h-72 bg-blue-500 rounded-full mix-blend-multiply filter blur-xl animate-float"></div>
-            <div class="absolute top-40 right-10 w-72 h-72 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl animate-float" style="animation-delay: 2s;"></div>
-            <div class="absolute -bottom-8 left-20 w-72 h-72 bg-pink-500 rounded-full mix-blend-multiply filter blur-xl animate-float" style="animation-delay: 4s;"></div>
+        <div class="absolute inset-0 opacity-20 parallax parallax-bg" id="hero-bg">
+            <!-- HTML Tags -->
+            <div class="absolute top-20 left-16 text-nuxt-info font-mono text-lg animate-float transform hover:scale-110 transition-transform">&lt;div&gt;</div>
+            <div class="absolute top-32 right-20 text-nuxt-success font-mono text-base animate-pulse">&lt;/section&gt;</div>
+            <div class="absolute bottom-32 left-24 text-nuxt-done font-mono text-lg animate-bounce" style="animation-duration: 3s;">&lt;html&gt;</div>
+
+            <!-- CSS Properties -->
+            <div class="absolute top-1/3 left-1/4 text-nuxt-info font-mono text-sm animate-float">display: flex;</div>
+            <div class="absolute bottom-1/4 right-1/3 text-nuxt-gray-dark font-mono text-sm animate-float" style="animation-delay: 2s;">position: relative;</div>
+            <div class="absolute top-1/2 right-1/6 text-nuxt-success font-mono text-sm animate-float" style="animation-delay: 1.5s;">margin: 0 auto;</div>
+
+            <!-- JavaScript Code Snippets -->
+            <div class="absolute top-1/6 left-1/12 text-nuxt-info opacity-40 font-mono text-xs animate-float" style="animation-delay: 0s;">
+                const portfolio = {<br>&nbsp;&nbsp;skills: ['Vue.js']<br>}
+            </div>
+            <div class="absolute bottom-1/5 right-1/8 text-nuxt-done opacity-40 font-mono text-xs animate-float" style="animation-delay: 3s;">
+                function developer() {<br>&nbsp;&nbsp;return 'awesome';<br>}
+            </div>
+
+            <!-- CSS Selectors and Properties -->
+            <div class="absolute top-2/3 right-1/4 text-nuxt-gray-dark font-mono text-sm animate-float" style="animation-delay: 4s;">.hero-section</div>
+            <div class="absolute top-1/2 left-1/6 text-nuxt-info font-mono text-sm animate-float" style="animation-delay: 1.5s;">#main-content</div>
+            <div class="absolute bottom-1/3 left-1/3 text-nuxt-success font-mono text-sm animate-float" style="animation-delay: 2.5s;">@media (max-width: 768px)</div>
+
+            <!-- HTML5 Semantic Tags -->
+            <div class="absolute top-16 right-32 text-nuxt-info opacity-40 font-mono text-sm animate-float" style="animation-delay: 1s;">
+                &lt;header&gt;<br>&nbsp;&nbsp;&lt;nav&gt;...&lt;/nav&gt;<br>&lt;/header&gt;
+            </div>
+            <div class="absolute bottom-20 left-32 text-nuxt-success opacity-40 font-mono text-sm animate-float" style="animation-delay: 3s;">
+                &lt;main&gt;<br>&nbsp;&nbsp;&lt;article&gt;...&lt;/article&gt;<br>&lt;/main&gt;
+            </div>
+
+            <!-- CSS Framework Classes -->
+            <div class="absolute top-0 left-0 w-full h-full">
+                <div class="absolute top-1/4 left-1/6 text-nuxt-info font-mono text-xs animate-ping" style="animation-delay: 0s;">.container</div>
+                <div class="absolute top-1/2 left-1/3 text-nuxt-success font-mono text-xs animate-ping" style="animation-delay: 2s;">.flex-center</div>
+                <div class="absolute top-3/4 right-1/4 text-nuxt-done font-mono text-xs animate-ping" style="animation-delay: 4s;">.responsive</div>
+                <div class="absolute top-1/6 right-1/6 text-nuxt-info opacity-40 font-mono text-xs animate-ping" style="animation-delay: 1s;">.grid-layout</div>
+                <div class="absolute bottom-1/6 left-1/2 text-nuxt-gray-dark font-mono text-xs animate-ping" style="animation-delay: 3s;">.animate-fade</div>
+            </div>
+
+            <!-- CSS Values and Units -->
+            <div class="absolute top-40 left-1/3 text-nuxt-info font-mono text-xs animate-float" style="animation-delay: 1.5s;">100vh</div>
+            <div class="absolute bottom-40 right-1/4 text-nuxt-success font-mono text-xs animate-float" style="animation-delay: 2.5s;">rgba(0,0,0,0.8)</div>
+            <div class="absolute top-1/3 right-1/5 text-nuxt-done font-mono text-xs animate-float" style="animation-delay: 0.5s;">2rem</div>
+            <div class="absolute bottom-1/4 left-1/5 text-nuxt-gray-dark font-mono text-xs animate-float" style="animation-delay: 3.5s;">transform: scale(1.2)</div>
+
+            <!-- ADDED: More HTML Tags -->
+            <div class="absolute top-5 right-1/6 text-nuxt-info font-mono text-sm animate-float" style="animation-delay: 6s;">&lt;meta charset="UTF-8"&gt;</div>
+            <div class="absolute bottom-5 left-1/8 text-nuxt-success font-mono text-sm animate-float" style="animation-delay: 6.5s;">&lt;link rel="stylesheet"&gt;</div>
+            <div class="absolute top-1/8 left-2/3 text-nuxt-done font-mono text-sm animate-float" style="animation-delay: 7s;">&lt;script src="app.js"&gt;</div>
+
+            <!-- ADDED: More CSS Properties -->
+            <div class="absolute bottom-1/6 right-1/8 text-nuxt-info font-mono text-xs animate-float" style="animation-delay: 7.5s;">font-weight: 600;</div>
+            <!-- ADDED: JS Snippet - Image Carousel Logic -->
+            <div class="absolute top-3/4 left-1/4 text-nuxt-done opacity-50 font-mono text-xs animate-float" style="animation-delay: 5.7s;">currentSlide = (n) => { /* ... */ }</div>
+
+            <!-- ADDED: More Project-Related Code Blocks -->
+            <div class="absolute top-1/9 left-3/5 text-nuxt-success font-mono text-xs animate-float" style="animation-delay: 6.3s;">&lt;div class="project-status active"&gt;&lt;/div&gt;</div>
+            <div class="absolute bottom-3/5 right-1/10 text-nuxt-info font-mono text-xs animate-float" style="animation-delay: 6.8s;">.project-thumbnail { object-fit: cover; }</div>
+            <div class="absolute top-4/5 left-1/12 text-nuxt-gray-dark font-mono text-xs animate-float" style="animation-delay: 7.3s;">const projects = await loadProjects();</div>
+            <div class="absolute bottom-1/7 right-2/5 text-nuxt-done opacity-40 font-mono text-xs animate-float" style="animation-delay: 7.8s;">&lt;span class="tech-stack"&gt;Vue.js&lt;/span&gt;</div>
+            <div class="absolute top-1/11 right-1/9 text-nuxt-success font-mono text-xs animate-float" style="animation-delay: 8.3s;">box-shadow: 0 10px 25px rgba(0,220,130,0.1);</div>
         </div>
 
         <div class="text-center z-10 px-4">
             <h1 class="text-5xl md:text-7xl font-bold mb-6 animate-bounce-in">
-                <span class="bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent">
+                <span class="bg-gradient-to-r from-nuxt-green via-nuxt-info to-nuxt-done bg-clip-text text-transparent">
                     Ruje Alfon
                 </span>
             </h1>
-            <h2 class="text-2xl md:text-3xl text-gray-300 mb-8 animate-slide-up stagger-1">
-                Senior Frontend Web Developer
+            <h2 class="text-2xl md:text-3xl text-nuxt-gray-light mb-8 animate-slide-up stagger-1">
+                Senior <span class="highlight-text">Frontend</span> Web Developer
             </h2>
-            <p class="text-lg text-gray-400 mb-8 max-w-2xl mx-auto animate-slide-up stagger-2">
-                Creating dynamic, rich and interesting web portals with modern technologies.
-                Specialized in Vue.js, JavaScript, and building user-friendly applications.
+            <p class="text-lg text-nuxt-gray-lighter mb-8 max-w-2xl mx-auto animate-slide-up stagger-2 typewriter-container">
+                <span id="typewriter-text" class="typewriter-text"></span><span class="typewriter"></span>
             </p>
             <div class="flex flex-col sm:flex-row gap-4 justify-center animate-slide-up stagger-3">
-                <a href="#projects" class="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 px-8 py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 hover:animate-glow">
+                <a href="#projects" class="bg-gradient-to-r from-nuxt-green to-nuxt-info hover:from-nuxt-info hover:to-nuxt-done px-8 py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 hover:animate-glow">
                     View My Work
                 </a>
-                <a href="#contact" class="border border-gray-400 hover:border-white px-8 py-3 rounded-lg font-semibold transition-all duration-300 hover:bg-white hover:text-gray-900">
+                <a href="#contact" class="border border-nuxt-gray hover:border-nuxt-info px-8 py-3 rounded-lg font-semibold transition-all duration-300 hover:bg-nuxt-info hover:text-white">
                     Get In Touch
                 </a>
             </div>
@@ -159,93 +429,214 @@
     </section>
 
     <!-- About Section -->
-    <section id="about" class="py-20 px-4">
-        <div class="max-w-6xl mx-auto">
-            <h2 class="text-4xl font-bold text-center mb-16 bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent scroll-animate">
+    <section id="about" class="py-20 px-4 relative overflow-hidden">
+        <!-- Animated background particles -->
+        <div class="absolute inset-0 opacity-10">
+            <div class="absolute top-10 left-10 w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>
+            <div class="absolute top-32 right-20 w-3 h-3 bg-green-400 rounded-full animate-bounce" style="animation-delay: 0.5s;"></div>
+            <div class="absolute bottom-40 left-1/4 w-2 h-2 bg-purple-400 rounded-full animate-ping" style="animation-delay: 1s;"></div>
+            <div class="absolute top-1/2 right-10 w-4 h-4 bg-blue-400 rounded-full animate-pulse" style="animation-delay: 1.5s;"></div>
+            <div class="absolute bottom-20 right-1/3 w-2 h-2 bg-green-400 rounded-full animate-bounce" style="animation-delay: 2s;"></div>
+        </div>
+        <!-- Animated Code Blocks Background -->
+        <div class="absolute inset-0 opacity-20 pointer-events-none z-0 parallax-bg">
+            <!-- HTML Tags -->
+            <div class="absolute top-20 left-16 text-nuxt-info font-mono text-lg animate-float transform hover:scale-110 transition-transform">&lt;div&gt;</div>
+            <div class="absolute top-32 right-20 text-nuxt-success font-mono text-base animate-pulse">&lt;/section&gt;</div>
+            <div class="absolute bottom-32 left-24 text-nuxt-done font-mono text-lg animate-bounce" style="animation-duration: 3s;">&lt;html&gt;</div>
+
+            <!-- CSS Properties -->
+            <div class="absolute top-1/3 left-1/4 text-nuxt-info font-mono text-sm animate-float">display: flex;</div>
+            <div class="absolute bottom-1/4 right-1/3 text-nuxt-gray-dark font-mono text-sm animate-float" style="animation-delay: 2s;">position: relative;</div>
+            <div class="absolute top-1/2 right-1/6 text-nuxt-success font-mono text-sm animate-float" style="animation-delay: 1.5s;">margin: 0 auto;</div>
+
+            <!-- JavaScript Code Snippets -->
+            <div class="absolute top-1/6 left-1/12 text-nuxt-info opacity-40 font-mono text-xs animate-float" style="animation-delay: 0s;">
+                const portfolio = {<br>&nbsp;&nbsp;skills: ['Vue.js']<br>}
+            </div>
+            <div class="absolute bottom-1/5 right-1/8 text-nuxt-done opacity-40 font-mono text-xs animate-float" style="animation-delay: 3s;">
+                function developer() {<br>&nbsp;&nbsp;return 'awesome';<br>}
+            </div>
+
+            <!-- CSS Selectors and Properties -->
+            <div class="absolute top-2/3 right-1/4 text-nuxt-gray-dark font-mono text-sm animate-float" style="animation-delay: 4s;">.hero-section</div>
+            <div class="absolute top-1/2 left-1/6 text-nuxt-info font-mono text-sm animate-float" style="animation-delay: 1.5s;">#main-content</div>
+            <div class="absolute bottom-1/3 left-1/3 text-nuxt-success font-mono text-sm animate-float" style="animation-delay: 2.5s;">@media (max-width: 768px)</div>
+
+            <!-- HTML5 Semantic Tags -->
+            <div class="absolute top-16 right-32 text-nuxt-info opacity-40 font-mono text-sm animate-float" style="animation-delay: 1s;">
+                &lt;header&gt;<br>&nbsp;&nbsp;&lt;nav&gt;...&lt;/nav&gt;<br>&lt;/header&gt;
+            </div>
+            <div class="absolute bottom-20 left-32 text-nuxt-success opacity-40 font-mono text-sm animate-float" style="animation-delay: 3s;">
+                &lt;main&gt;<br>&nbsp;&nbsp;&lt;article&gt;...&lt;/article&gt;<br>&lt;/main&gt;
+            </div>
+
+            <!-- CSS Framework Classes -->
+            <div class="absolute top-0 left-0 w-full h-full">
+                <div class="absolute top-1/4 left-1/6 text-nuxt-info font-mono text-xs animate-ping" style="animation-delay: 0s;">.container</div>
+                <div class="absolute top-1/2 left-1/3 text-nuxt-success font-mono text-xs animate-ping" style="animation-delay: 2s;">.flex-center</div>
+                <div class="absolute top-3/4 right-1/4 text-nuxt-done font-mono text-xs animate-ping" style="animation-delay: 4s;">.responsive</div>
+                <div class="absolute top-1/6 right-1/6 text-nuxt-info opacity-40 font-mono text-xs animate-ping" style="animation-delay: 1s;">.grid-layout</div>
+                <div class="absolute bottom-1/6 left-1/2 text-nuxt-gray-dark font-mono text-xs animate-ping" style="animation-delay: 3s;">.animate-fade</div>
+            </div>
+
+            <!-- CSS Values and Units -->
+            <div class="absolute top-40 left-1/3 text-nuxt-info font-mono text-xs animate-float" style="animation-delay: 1.5s;">100vh</div>
+            <div class="absolute bottom-40 right-1/4 text-nuxt-success font-mono text-xs animate-float" style="animation-delay: 2.5s;">rgba(0,0,0,0.8)</div>
+            <div class="absolute top-1/3 right-1/5 text-nuxt-done font-mono text-xs animate-float" style="animation-delay: 0.5s;">2rem</div>
+            <div class="absolute bottom-1/4 left-1/5 text-nuxt-gray-dark font-mono text-xs animate-float" style="animation-delay: 3.5s;">transform: scale(1.2)</div>
+
+            <!-- ADDED: JS Snippet - Thank You Message -->
+            <div class="absolute top-2/5 right-1/4 text-nuxt-done opacity-50 font-mono text-xs animate-float" style="animation-delay: 5.5s;">console.log('Welcome!');</div>
+
+            <!-- ADDED: More About-Specific Code Blocks -->
+            <div class="absolute top-1/12 left-1/2 text-nuxt-success font-mono text-xs animate-float" style="animation-delay: 6.2s;">&lt;div class="bio"&gt;10+ years experience&lt;/div&gt;</div>
+            <div class="absolute bottom-3/4 right-2/5 text-nuxt-info font-mono text-xs animate-float" style="animation-delay: 6.7s;">.skills-list { list-style: none; }</div>
+            <div class="absolute top-4/5 left-1/10 text-nuxt-gray-dark font-mono text-xs animate-float" style="animation-delay: 7.2s;">const yearsExp = new Date().getFullYear() - 2014;</div>
+            <div class="absolute bottom-1/8 right-1/5 text-nuxt-done opacity-40 font-mono text-xs animate-float" style="animation-delay: 7.7s;">&lt;span class="expertise"&gt;Frontend&lt;/span&gt;</div>
+            <div class="absolute top-1/7 right-1/8 text-nuxt-success font-mono text-xs animate-float" style="animation-delay: 8.2s;">background: linear-gradient(45deg, #00DC82, #3B82F6);</div>
+
+            <!-- ADDED: More About-Specific Code Blocks -->
+            <div class="absolute top-1/13 left-4/5 text-nuxt-info font-mono text-xs animate-float" style="animation-delay: 8.7s;">&lt;article class="bio"&gt;...&lt;/article&gt;</div>
+            <div class="absolute bottom-4/5 right-1/12 text-nuxt-success font-mono text-xs animate-float" style="animation-delay: 9.2s;">.hobby { color: #nuxt-green; }</div>
+            <div class="absolute top-5/6 left-1/7 text-nuxt-gray-dark font-mono text-xs animate-float" style="animation-delay: 9.7s;">const skills = ['Vue.js', 'JavaScript'];</div>
+            <div class="absolute bottom-1/10 right-2/5 text-nuxt-done opacity-40 font-mono text-xs animate-float" style="animation-delay: 10.2s;">&lt;span class="tag"&gt;React&lt;/span&gt;</div>
+            <div class="absolute top-1/9 right-1/5 text-nuxt-info font-mono text-xs animate-float" style="animation-delay: 10.7s;">.button { padding: 10px 20px; }</div>
+        </div>
+
+        <div class="max-w-6xl mx-auto relative z-10">
+            <h2 class="text-4xl font-bold text-center mb-16 bg-gradient-to-r from-nuxt-green to-nuxt-info bg-clip-text text-transparent scroll-animate">
                 About Me
             </h2>
             <div class="grid md:grid-cols-3 gap-12 items-center">
                 <!-- Profile Image -->
                 <div class="md:col-span-1 flex justify-center scroll-animate">
                     <div class="relative group">
-                        <div class="absolute -inset-1 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 rounded-full blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-pulse"></div>
+                        <div class="absolute -inset-1 bg-gradient-to-r from-nuxt-green via-nuxt-info to-nuxt-done rounded-full blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-pulse"></div>
                         <img
                             src="https://rujealfon.github.io/images/profile.jpeg"
                             alt="Ruje Alfon - Frontend Web Developer"
-                            class="relative w-64 h-64 md:w-80 md:h-80 rounded-full object-cover border-4 border-gray-700 shadow-2xl transform transition-all duration-500 group-hover:scale-105 group-hover:rotate-3"
+                            class="relative w-64 h-64 md:w-80 md:h-80 rounded-full object-cover border-4 border-nuxt-gray shadow-2xl transform transition-all duration-500 group-hover:scale-105 group-hover:rotate-3"
                         >
-                        <div class="absolute inset-0 rounded-full bg-gradient-to-tr from-blue-500/20 to-purple-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                        <div class="absolute inset-0 rounded-full bg-gradient-to-tr from-nuxt-green/20 to-nuxt-info/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+                        <!-- Floating code symbols around image -->
+                        <div class="absolute -top-4 -left-4 text-nuxt-info opacity-0 group-hover:opacity-100 transition-all duration-500 transform group-hover:scale-125 animate-bounce">
+                            <i class="fas fa-code text-2xl"></i>
+                        </div>
+                        <div class="absolute -top-4 -right-4 text-nuxt-success opacity-0 group-hover:opacity-100 transition-all duration-700 transform group-hover:scale-125 animate-pulse">
+                            <i class="fas fa-laptop-code text-2xl"></i>
+                        </div>
+                        <div class="absolute -bottom-4 -left-4 text-nuxt-done opacity-0 group-hover:opacity-100 transition-all duration-600 transform group-hover:scale-125 animate-spin" style="animation-duration: 3s;">
+                            <i class="fas fa-paint-brush text-2xl"></i>
+                        </div>
+                        <div class="absolute -bottom-4 -right-4 text-nuxt-gray-dark opacity-0 group-hover:opacity-100 transition-all duration-800 transform group-hover:scale-125 animate-bounce">
+                            <i class="fas fa-lightbulb text-2xl"></i>
+                        </div>
                     </div>
                 </div>
 
-                <!-- About Text -->
+                <!-- About Text with Progressive Animation -->
                 <div class="md:col-span-2 space-y-6 scroll-animate">
-                    <p class="text-gray-300 text-lg leading-relaxed">
-                        Passionate frontend developer with 10+ years of experience crafting exceptional digital experiences.
-                        I transform complex ideas into intuitive, responsive web applications using modern frameworks like Vue.js,
-                        cutting-edge CSS techniques, and performance-optimized JavaScript.
-                    </p>
-                    <p class="text-gray-300 text-lg leading-relaxed">
-                        From concept to deployment, I thrive in agile environments where collaboration meets innovation.
-                        My expertise spans the entire development lifecycle - architecting scalable component systems,
-                        implementing pixel-perfect designs, and ensuring seamless user experiences across all devices and platforms.
-                    </p>
-                    <p class="text-gray-300 text-lg leading-relaxed">
-                        I'm passionate about staying ahead of the curve with emerging technologies, accessibility standards,
-                        and performance optimization techniques that make the web faster and more inclusive for everyone.
-                    </p>
-                    <div class="flex flex-wrap gap-4 pt-4">
-                        <div class="flex items-center gap-2 text-blue-400">
-                            <i class="fas fa-code"></i>
-                            <span>Frontend Specialist</span>
+                    <div class="about-text-container">
+                        <p class="text-nuxt-gray-light text-lg leading-relaxed about-text opacity-0 transform translate-y-4 transition-all duration-800 ease-out">
+                            Passionate frontend developer with 10+ years of experience crafting exceptional digital experiences.
+                            I transform complex ideas into intuitive, responsive web applications using modern frameworks like Vue.js,
+                            cutting-edge CSS techniques, and performance-optimized JavaScript.
+                        </p>
+                        <p class="text-nuxt-gray-light text-lg leading-relaxed about-text opacity-0 transform translate-y-4 transition-all duration-800 ease-out" style="transition-delay: 0.3s;">
+                            From concept to deployment, I thrive in agile environments where collaboration meets innovation.
+                            My expertise spans the entire development lifecycle - architecting scalable component systems,
+                            implementing pixel-perfect designs, and ensuring seamless user experiences across all devices and platforms.
+                        </p>
+                        <p class="text-nuxt-gray-light text-lg leading-relaxed about-text opacity-0 transform translate-y-4 transition-all duration-800 ease-out" style="transition-delay: 0.6s;">
+                            I'm passionate about staying ahead of the curve with emerging technologies, accessibility standards,
+                            and performance optimization techniques that make the web faster and more inclusive for everyone.
+                        </p>
+                    </div>
+
+                    <!-- Animated specialty badges -->
+                    <div class="flex flex-wrap gap-4 pt-4 specialty-badges">
+                        <div class="flex items-center gap-2 text-nuxt-info bg-nuxt-info/10 px-4 py-2 rounded-full border border-nuxt-info/20 opacity-0 transform scale-95 transition-all duration-500 hover:scale-105 hover:bg-nuxt-info/20 cursor-pointer group" style="transition-delay: 0.9s;">
+                            <i class="fas fa-code group-hover:animate-pulse"></i>
+                            <span class="font-medium">Frontend Specialist</span>
+                            <div class="w-2 h-2 bg-nuxt-info rounded-full animate-pulse ml-2"></div>
                         </div>
-                        <div class="flex items-center gap-2 text-green-400">
-                            <i class="fas fa-mobile-alt"></i>
-                            <span>Mobile Development</span>
+                        <div class="flex items-center gap-2 text-nuxt-success bg-nuxt-success/10 px-4 py-2 rounded-full border border-nuxt-success/20 opacity-0 transform scale-95 transition-all duration-500 hover:scale-105 hover:bg-nuxt-success/20 cursor-pointer group" style="transition-delay: 1.2s;">
+                            <i class="fas fa-mobile-alt group-hover:animate-bounce"></i>
+                            <span class="font-medium">Mobile Development</span>
+                            <div class="w-2 h-2 bg-nuxt-success rounded-full animate-pulse ml-2"></div>
                         </div>
-                        <div class="flex items-center gap-2 text-purple-400">
-                            <i class="fas fa-paint-brush"></i>
-                            <span>UI/UX Design</span>
+                        <div class="flex items-center gap-2 text-nuxt-done bg-nuxt-done/10 px-4 py-2 rounded-full border border-nuxt-done/20 opacity-0 transform scale-95 transition-all duration-500 hover:scale-105 hover:bg-nuxt-done/20 cursor-pointer group" style="transition-delay: 1.5s;">
+                            <i class="fas fa-paint-brush group-hover:animate-spin" style="animation-duration: 2s;"></i>
+                            <span class="font-medium">UI/UX Design</span>
+                            <div class="w-2 h-2 bg-nuxt-done rounded-full animate-pulse ml-2"></div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Skills Grid -->
+            <!-- Enhanced Skills Grid with Staggered Animations -->
             <div class="mt-16">
-                <h3 class="text-2xl font-bold text-center mb-8 text-gray-300 scroll-animate">Technical Skills</h3>
+                <h3 class="text-2xl font-bold text-center mb-8 text-nuxt-gray-light scroll-animate">Technical Skills</h3>
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    <div class="bg-gray-800 p-4 rounded-lg border border-gray-700 hover:border-blue-500 transition-colors duration-300 scroll-animate stagger-1">
-                        <i class="fab fa-js-square text-yellow-400 text-2xl mb-2"></i>
-                        <h3 class="font-semibold">JavaScript</h3>
+                    <div class="skill-card bg-nuxt-dark p-4 rounded-lg border border-nuxt-gray hover:border-yellow-400 hover:shadow-lg hover:shadow-yellow-400/20 transition-all duration-300 scroll-animate stagger-1 transform hover:scale-105 hover:-translate-y-2 group cursor-pointer">
+                        <i class="fab fa-js-square text-yellow-400 text-2xl mb-2 group-hover:animate-bounce"></i>
+                        <h3 class="font-semibold text-nuxt-white group-hover:text-yellow-400 transition-colors">JavaScript</h3>
+                        <div class="w-full bg-nuxt-gray rounded-full h-1 mt-2 overflow-hidden">
+                            <div class="h-full bg-yellow-400 rounded-full skill-progress" style="width: 0%; transition: width 2s ease-out; transition-delay: 0.5s;"></div>
+                        </div>
                     </div>
-                    <div class="bg-gray-800 p-4 rounded-lg border border-gray-700 hover:border-green-500 transition-colors duration-300 scroll-animate stagger-2">
-                        <i class="fab fa-vuejs text-green-400 text-2xl mb-2"></i>
-                        <h3 class="font-semibold">Vue.js</h3>
+                    <div class="skill-card bg-nuxt-dark p-4 rounded-lg border border-nuxt-gray hover:border-nuxt-green hover:shadow-lg hover:shadow-nuxt-green/20 transition-all duration-300 scroll-animate stagger-2 transform hover:scale-105 hover:-translate-y-2 group cursor-pointer">
+                        <i class="fab fa-vuejs text-nuxt-green text-2xl mb-2 group-hover:animate-spin" style="animation-duration: 2s;"></i>
+                        <h3 class="font-semibold text-nuxt-white group-hover:text-nuxt-green transition-colors">Vue.js</h3>
+                        <div class="w-full bg-nuxt-gray rounded-full h-1 mt-2 overflow-hidden">
+                            <div class="h-full bg-nuxt-green rounded-full skill-progress" style="width: 0%; transition: width 2s ease-out; transition-delay: 0.7s;"></div>
+                        </div>
                     </div>
-                    <div class="bg-gray-800 p-4 rounded-lg border border-gray-700 hover:border-orange-500 transition-colors duration-300 scroll-animate stagger-3">
-                        <i class="fab fa-html5 text-orange-400 text-2xl mb-2"></i>
-                        <h3 class="font-semibold">HTML5</h3>
+                    <div class="skill-card bg-nuxt-dark p-4 rounded-lg border border-nuxt-gray hover:border-orange-500 hover:shadow-lg hover:shadow-orange-500/20 transition-all duration-300 scroll-animate stagger-3 transform hover:scale-105 hover:-translate-y-2 group cursor-pointer">
+                        <i class="fab fa-html5 text-orange-500 text-2xl mb-2 group-hover:animate-pulse"></i>
+                        <h3 class="font-semibold text-nuxt-white group-hover:text-orange-500 transition-colors">HTML5</h3>
+                        <div class="w-full bg-nuxt-gray rounded-full h-1 mt-2 overflow-hidden">
+                            <div class="h-full bg-orange-500 rounded-full skill-progress" style="width: 0%; transition: width 2s ease-out; transition-delay: 0.9s;"></div>
+                        </div>
                     </div>
-                    <div class="bg-gray-800 p-4 rounded-lg border border-gray-700 hover:border-blue-500 transition-colors duration-300 scroll-animate stagger-4">
-                        <i class="fab fa-css3-alt text-blue-400 text-2xl mb-2"></i>
-                        <h3 class="font-semibold">CSS3</h3>
+                    <div class="skill-card bg-nuxt-dark p-4 rounded-lg border border-nuxt-gray hover:border-blue-500 hover:shadow-lg hover:shadow-blue-500/20 transition-all duration-300 scroll-animate stagger-4 transform hover:scale-105 hover:-translate-y-2 group cursor-pointer">
+                        <i class="fab fa-css3-alt text-blue-500 text-2xl mb-2 group-hover:animate-bounce"></i>
+                        <h3 class="font-semibold text-nuxt-white group-hover:text-blue-500 transition-colors">CSS3</h3>
+                        <div class="w-full bg-nuxt-gray rounded-full h-1 mt-2 overflow-hidden">
+                            <div class="h-full bg-blue-500 rounded-full skill-progress" style="width: 0%; transition: width 2s ease-out; transition-delay: 1.1s;"></div>
+                        </div>
                     </div>
-                    <div class="bg-gray-800 p-4 rounded-lg border border-gray-700 hover:border-purple-500 transition-colors duration-300 scroll-animate stagger-5">
-                        <i class="fas fa-code text-purple-400 text-2xl mb-2"></i>
-                        <h3 class="font-semibold">jQuery</h3>
+                    <div class="skill-card bg-nuxt-dark p-4 rounded-lg border border-nuxt-gray hover:border-nuxt-green hover:shadow-lg hover:shadow-nuxt-green/20 transition-all duration-300 scroll-animate stagger-5 transform hover:scale-105 hover:-translate-y-2 group cursor-pointer">
+                        <div class="w-8 h-8 bg-nuxt-green/20 rounded mb-2 flex items-center justify-center group-hover:animate-pulse border border-nuxt-green/30">
+                            <img src="https://nuxt.com/assets/design-kit/icon-green.svg" alt="Nuxt.js" class="w-6 h-6">
+                        </div>
+                        <h3 class="font-semibold text-nuxt-white group-hover:text-nuxt-green transition-colors">Nuxt.js</h3>
+                        <div class="w-full bg-nuxt-gray rounded-full h-1 mt-2 overflow-hidden">
+                            <div class="h-full bg-nuxt-green rounded-full skill-progress" style="width: 0%; transition: width 2s ease-out; transition-delay: 1.3s;"></div>
+                        </div>
                     </div>
-                    <div class="bg-gray-800 p-4 rounded-lg border border-gray-700 hover:border-yellow-500 transition-colors duration-300 scroll-animate stagger-6">
-                        <i class="fab fa-aws text-yellow-400 text-2xl mb-2"></i>
-                        <h3 class="font-semibold">AWS</h3>
+                    <div class="skill-card bg-nuxt-dark p-4 rounded-lg border border-nuxt-gray hover:border-orange-600 hover:shadow-lg hover:shadow-orange-600/20 transition-all duration-300 scroll-animate stagger-6 transform hover:scale-105 hover:-translate-y-2 group cursor-pointer">
+                        <i class="fas fa-mobile-alt text-orange-600 text-2xl mb-2 group-hover:animate-pulse"></i>
+                        <h3 class="font-semibold text-nuxt-white group-hover:text-orange-600 transition-colors">CapacitorJS</h3>
+                        <div class="w-full bg-nuxt-gray rounded-full h-1 mt-2 overflow-hidden">
+                            <div class="h-full bg-orange-600 rounded-full skill-progress" style="width: 0%; transition: width 2s ease-out; transition-delay: 1.5s;"></div>
+                        </div>
                     </div>
-                    <div class="bg-gray-800 p-4 rounded-lg border border-gray-700 hover:border-green-500 transition-colors duration-300 scroll-animate stagger-7">
-                        <i class="fab fa-node-js text-green-400 text-2xl mb-2"></i>
-                        <h3 class="font-semibold">Node.js</h3>
+                    <div class="skill-card bg-nuxt-dark p-4 rounded-lg border border-nuxt-gray hover:border-blue-600 hover:shadow-lg hover:shadow-blue-600/20 transition-all duration-300 scroll-animate stagger-7 transform hover:scale-105 hover:-translate-y-2 group cursor-pointer">
+                        <div class="w-8 h-8 bg-blue-600 rounded text-white text-sm mb-2 flex items-center justify-center font-bold group-hover:animate-bounce">TS</div>
+                        <h3 class="font-semibold text-nuxt-white group-hover:text-blue-600 transition-colors">TypeScript</h3>
+                        <div class="w-full bg-nuxt-gray rounded-full h-1 mt-2 overflow-hidden">
+                            <div class="h-full bg-blue-600 rounded-full skill-progress" style="width: 0%; transition: width 2s ease-out; transition-delay: 1.7s;"></div>
+                        </div>
                     </div>
-                    <div class="bg-gray-800 p-4 rounded-lg border border-gray-700 hover:border-red-500 transition-colors duration-300 scroll-animate stagger-8">
-                        <i class="fas fa-database text-red-400 text-2xl mb-2"></i>
-                        <h3 class="font-semibold">MySQL</h3>
+                    <div class="skill-card bg-nuxt-dark p-4 rounded-lg border border-nuxt-gray hover:border-red-500 hover:shadow-lg hover:shadow-red-500/20 transition-all duration-300 scroll-animate stagger-8 transform hover:scale-105 hover:-translate-y-2 group cursor-pointer">
+                        <i class="fas fa-layer-group text-red-500 text-2xl mb-2 group-hover:animate-pulse"></i>
+                        <h3 class="font-semibold text-nuxt-white group-hover:text-red-500 transition-colors">Storyblok</h3>
+                        <div class="w-full bg-nuxt-gray rounded-full h-1 mt-2 overflow-hidden">
+                            <div class="h-full bg-red-500 rounded-full skill-progress" style="width: 0%; transition: width 2s ease-out; transition-delay: 1.9s;"></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -253,122 +644,301 @@
     </section>
 
     <!-- Projects Section -->
-    <section id="projects" class="py-20 px-4 bg-gray-800/50">
-        <div class="max-w-6xl mx-auto">
-            <h2 class="text-4xl font-bold text-center mb-16 bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent scroll-animate">
+    <section id="projects" class="py-20 px-4 bg-nuxt-dark/30 relative overflow-hidden">
+        <!-- Animated Code Blocks Background -->
+        <div class="absolute inset-0 opacity-20 pointer-events-none z-0 parallax-bg">
+            <!-- HTML Tags -->
+            <div class="absolute top-20 left-16 text-nuxt-info font-mono text-lg animate-float transform hover:scale-110 transition-transform">&lt;div&gt;</div>
+            <div class="absolute top-32 right-20 text-nuxt-success font-mono text-base animate-pulse">&lt;/section&gt;</div>
+            <div class="absolute bottom-32 left-24 text-nuxt-done font-mono text-lg animate-bounce" style="animation-duration: 3s;">&lt;html&gt;</div>
+
+            <!-- CSS Properties -->
+            <div class="absolute top-1/3 left-1/4 text-nuxt-info font-mono text-sm animate-float">display: flex;</div>
+            <div class="absolute bottom-1/4 right-1/3 text-nuxt-gray-dark font-mono text-sm animate-float" style="animation-delay: 2s;">position: relative;</div>
+            <div class="absolute top-1/2 right-1/6 text-nuxt-success font-mono text-sm animate-float" style="animation-delay: 1.5s;">margin: 0 auto;</div>
+
+            <!-- JavaScript Code Snippets -->
+            <div class="absolute top-1/6 left-1/12 text-nuxt-info opacity-40 font-mono text-xs animate-float" style="animation-delay: 0s;">
+                const portfolio = {<br>&nbsp;&nbsp;skills: ['Vue.js']<br>}
+            </div>
+            <div class="absolute bottom-1/5 right-1/8 text-nuxt-done opacity-40 font-mono text-xs animate-float" style="animation-delay: 3s;">
+                function developer() {<br>&nbsp;&nbsp;return 'awesome';<br>}
+            </div>
+
+            <!-- CSS Selectors and Properties -->
+            <div class="absolute top-2/3 right-1/4 text-nuxt-gray-dark font-mono text-sm animate-float" style="animation-delay: 4s;">.hero-section</div>
+            <div class="absolute top-1/2 left-1/6 text-nuxt-info font-mono text-sm animate-float" style="animation-delay: 1.5s;">#main-content</div>
+            <div class="absolute bottom-1/3 left-1/3 text-nuxt-success font-mono text-sm animate-float" style="animation-delay: 2.5s;">@media (max-width: 768px)</div>
+
+            <!-- HTML5 Semantic Tags -->
+            <div class="absolute top-16 right-32 text-nuxt-info opacity-40 font-mono text-sm animate-float" style="animation-delay: 1s;">
+                &lt;header&gt;<br>&nbsp;&nbsp;&lt;nav&gt;...&lt;/nav&gt;<br>&lt;/header&gt;
+            </div>
+            <div class="absolute bottom-20 left-32 text-nuxt-success opacity-40 font-mono text-sm animate-float" style="animation-delay: 3s;">
+                &lt;main&gt;<br>&nbsp;&nbsp;&lt;article&gt;...&lt;/article&gt;<br>&lt;/main&gt;
+            </div>
+
+            <!-- CSS Framework Classes -->
+            <div class="absolute top-0 left-0 w-full h-full">
+                <div class="absolute top-1/4 left-1/6 text-nuxt-info font-mono text-xs animate-ping" style="animation-delay: 0s;">.container</div>
+                <div class="absolute top-1/2 left-1/3 text-nuxt-success font-mono text-xs animate-ping" style="animation-delay: 2s;">.flex-center</div>
+                <div class="absolute top-3/4 right-1/4 text-nuxt-done font-mono text-xs animate-ping" style="animation-delay: 4s;">.responsive</div>
+                <div class="absolute top-1/6 right-1/6 text-nuxt-info opacity-40 font-mono text-xs animate-ping" style="animation-delay: 1s;">.grid-layout</div>
+                <div class="absolute bottom-1/6 left-1/2 text-nuxt-gray-dark font-mono text-xs animate-ping" style="animation-delay: 3s;">.animate-fade</div>
+            </div>
+
+            <!-- CSS Values and Units -->
+            <div class="absolute top-40 left-1/3 text-nuxt-info font-mono text-xs animate-float" style="animation-delay: 1.5s;">100vh</div>
+            <div class="absolute bottom-40 right-1/4 text-nuxt-success font-mono text-xs animate-float" style="animation-delay: 2.5s;">rgba(0,0,0,0.8)</div>
+            <div class="absolute top-1/3 right-1/5 text-nuxt-done font-mono text-xs animate-float" style="animation-delay: 0.5s;">2rem</div>
+            <div class="absolute bottom-1/4 left-1/5 text-nuxt-gray-dark font-mono text-xs animate-float" style="animation-delay: 3.5s;">transform: scale(1.2)</div>
+
+            <!-- ADDED: More HTML Tags -->
+            <div class="absolute top-5 right-1/6 text-nuxt-info font-mono text-sm animate-float" style="animation-delay: 6s;">&lt;meta charset="UTF-8"&gt;</div>
+            <div class="absolute bottom-5 left-1/8 text-nuxt-success font-mono text-sm animate-float" style="animation-delay: 6.5s;">&lt;link rel="stylesheet"&gt;</div>
+            <div class="absolute top-1/8 left-2/3 text-nuxt-done font-mono text-sm animate-float" style="animation-delay: 7s;">&lt;script src="app.js"&gt;</div>
+
+            <!-- ADDED: More CSS Properties -->
+            <div class="absolute bottom-1/6 right-1/8 text-nuxt-info font-mono text-xs animate-float" style="animation-delay: 7.5s;">font-weight: 600;</div>
+            <!-- ADDED: JS Snippet - Image Carousel Logic -->
+            <div class="absolute top-3/4 left-1/4 text-nuxt-done opacity-50 font-mono text-xs animate-float" style="animation-delay: 5.7s;">currentSlide = (n) => { /* ... */ }</div>
+
+            <!-- ADDED: More Project-Related Code Blocks -->
+            <div class="absolute top-1/9 left-3/5 text-nuxt-success font-mono text-xs animate-float" style="animation-delay: 6.3s;">&lt;div class="project-status active"&gt;&lt;/div&gt;</div>
+            <div class="absolute bottom-3/5 right-1/10 text-nuxt-info font-mono text-xs animate-float" style="animation-delay: 6.8s;">.project-thumbnail { object-fit: cover; }</div>
+            <div class="absolute top-4/5 left-1/12 text-nuxt-gray-dark font-mono text-xs animate-float" style="animation-delay: 7.3s;">const projects = await loadProjects();</div>
+            <div class="absolute bottom-1/7 right-2/5 text-nuxt-done opacity-40 font-mono text-xs animate-float" style="animation-delay: 7.8s;">&lt;span class="tech-stack"&gt;Vue.js&lt;/span&gt;</div>
+            <div class="absolute top-1/11 right-1/9 text-nuxt-success font-mono text-xs animate-float" style="animation-delay: 8.3s;">box-shadow: 0 10px 25px rgba(0,220,130,0.1);</div>
+        </div>
+        <div class="max-w-7xl mx-auto relative z-10">
+            <h2 class="text-4xl font-bold text-center mb-16 bg-gradient-to-r from-nuxt-green to-nuxt-info bg-clip-text text-transparent scroll-animate">
                 Featured Projects
             </h2>
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- PizzaHut -->
-                <div class="bg-gray-800 rounded-lg overflow-hidden border border-gray-700 hover:border-blue-500 transition-all duration-300 transform hover:scale-105 group scroll-animate stagger-1">
-                    <div class="p-6">
-                        <div class="flex items-center justify-between mb-4">
-                            <h3 class="text-xl font-semibold text-blue-400">PizzaHut</h3>
-                            <a href="https://www.pizzahut.com.au" target="_blank" class="text-gray-400 hover:text-white transition-colors">
-                                <i class="fas fa-external-link-alt"></i>
-                            </a>
+                <div class="project-card bg-nuxt-dark rounded-xl overflow-hidden border border-nuxt-gray hover:border-blue-500 hover:shadow-lg hover:shadow-blue-500/20 transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 group scroll-animate stagger-1">
+                    <!-- Browser Header -->
+                    <div class="flex items-center justify-between p-4 bg-nuxt-gray-dark border-b border-nuxt-gray">
+                        <div class="flex items-center space-x-2">
+                            <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-green-500"></div>
                         </div>
-                        <p class="text-gray-300 mb-4">Maintain Web, Android and iOS App for PizzaHut Australia</p>
-                        <p class="text-sm text-gray-400 mb-4">Front-End Developer • March 2020</p>
+                        <a href="https://www.pizzahut.com.au" target="_blank" class="text-nuxt-gray-lighter hover:text-blue-500 transition-colors">
+                            <i class="fas fa-external-link-alt text-sm"></i>
+                        </a>
+                    </div>
+
+                    <!-- Project Visual -->
+                    <div class="h-48 bg-gradient-to-br from-blue-600/20 to-blue-800/20 flex items-center justify-center relative overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-br from-blue-600/10 to-blue-800/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                        <i class="fas fa-pizza-slice text-6xl text-blue-500 group-hover:scale-110 transition-transform duration-500"></i>
+                        <div class="absolute top-4 right-4 bg-blue-500/20 backdrop-blur-sm rounded-full px-3 py-1 text-xs font-medium text-blue-400">
+                            Live
+                        </div>
+                    </div>
+
+                    <!-- Content -->
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-nuxt-white mb-2 group-hover:text-blue-400 transition-colors">PizzaHut Australia</h3>
+                        <p class="text-nuxt-gray-lighter text-sm mb-4 leading-relaxed">Maintain Web, Android and iOS App for PizzaHut Australia with modern UI/UX and seamless ordering experience.</p>
+                        <p class="text-xs text-nuxt-gray-light mb-4">Frontend Developer • March 2020</p>
+
+                        <!-- Tech Stack -->
                         <div class="flex flex-wrap gap-2">
-                            <span class="bg-blue-500/20 text-blue-400 px-2 py-1 rounded text-xs">Web</span>
-                            <span class="bg-green-500/20 text-green-400 px-2 py-1 rounded text-xs">Mobile</span>
-                            <span class="bg-purple-500/20 text-purple-400 px-2 py-1 rounded text-xs">Maintenance</span>
+                            <span class="bg-blue-500/10 text-blue-400 px-2 py-1 rounded-full text-xs font-medium border border-blue-500/20">React</span>
+                            <span class="bg-green-500/10 text-green-400 px-2 py-1 rounded-full text-xs font-medium border border-green-500/20">Mobile</span>
+                            <span class="bg-purple-500/10 text-purple-400 px-2 py-1 rounded-full text-xs font-medium border border-purple-500/20">E-commerce</span>
                         </div>
                     </div>
                 </div>
 
                 <!-- Scoot Gauge Change -->
-                <div class="bg-gray-800 rounded-lg overflow-hidden border border-gray-700 hover:border-green-500 transition-all duration-300 transform hover:scale-105 group scroll-animate stagger-2">
-                    <div class="p-6">
-                        <div class="flex items-center justify-between mb-4">
-                            <h3 class="text-xl font-semibold text-green-400">Scoot Gauge Change</h3>
-                            <a href="https://gaugechange.flyscootca.com" target="_blank" class="text-gray-400 hover:text-white transition-colors">
-                                <i class="fas fa-external-link-alt"></i>
-                            </a>
+                <div class="project-card bg-nuxt-dark rounded-xl overflow-hidden border border-nuxt-gray hover:border-nuxt-green hover:shadow-lg hover:shadow-nuxt-green/20 transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 group scroll-animate stagger-2">
+                    <!-- Browser Header -->
+                    <div class="flex items-center justify-between p-4 bg-nuxt-gray-dark border-b border-nuxt-gray">
+                        <div class="flex items-center space-x-2">
+                            <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-green-500"></div>
                         </div>
-                        <p class="text-gray-300 mb-4">Automated gauge change process flow application built with Nuxt.js</p>
-                        <p class="text-sm text-gray-400 mb-4">Front-End/UI Developer • October 2019</p>
+                        <a href="https://gaugechange.flyscootca.com" target="_blank" class="text-nuxt-gray-lighter hover:text-nuxt-green transition-colors">
+                            <i class="fas fa-external-link-alt text-sm"></i>
+                        </a>
+                    </div>
+
+                    <!-- Project Visual -->
+                    <div class="h-48 bg-gradient-to-br from-nuxt-green/20 to-emerald-600/20 flex items-center justify-center relative overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-br from-nuxt-green/10 to-emerald-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                        <i class="fas fa-plane text-6xl text-nuxt-green group-hover:scale-110 transition-transform duration-500"></i>
+                        <div class="absolute top-4 right-4 bg-nuxt-green/20 backdrop-blur-sm rounded-full px-3 py-1 text-xs font-medium text-nuxt-green">
+                            Nuxt.js
+                        </div>
+                    </div>
+
+                    <!-- Content -->
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-nuxt-white mb-2 group-hover:text-nuxt-green transition-colors">Scoot Gauge Change</h3>
+                        <p class="text-nuxt-gray-lighter text-sm mb-4 leading-relaxed">Automated gauge change process flow application built with Nuxt.js for airline operations optimization.</p>
+                        <p class="text-xs text-nuxt-gray-light mb-4">Frontend/UI Developer • October 2019</p>
+
+                        <!-- Tech Stack -->
                         <div class="flex flex-wrap gap-2">
-                            <span class="bg-green-500/20 text-green-400 px-2 py-1 rounded text-xs">Nuxt.js</span>
-                            <span class="bg-blue-500/20 text-blue-400 px-2 py-1 rounded text-xs">Automation</span>
-                            <span class="bg-purple-500/20 text-purple-400 px-2 py-1 rounded text-xs">UI/UX</span>
+                            <span class="bg-nuxt-green/10 text-nuxt-green px-2 py-1 rounded-full text-xs font-medium border border-nuxt-green/20">Nuxt.js</span>
+                            <span class="bg-blue-500/10 text-blue-400 px-2 py-1 rounded-full text-xs font-medium border border-blue-500/20">Automation</span>
+                            <span class="bg-purple-500/10 text-purple-400 px-2 py-1 rounded-full text-xs font-medium border border-purple-500/20">UI/UX</span>
                         </div>
                     </div>
                 </div>
 
                 <!-- Galleon PH -->
-                <div class="bg-gray-800 rounded-lg overflow-hidden border border-gray-700 hover:border-purple-500 transition-all duration-300 transform hover:scale-105 group scroll-animate stagger-3">
-                    <div class="p-6">
-                        <div class="flex items-center justify-between mb-4">
-                            <h3 class="text-xl font-semibold text-purple-400">Galleon PH</h3>
-                            <a href="http://galleon.ph" target="_blank" class="text-gray-400 hover:text-white transition-colors">
-                                <i class="fas fa-external-link-alt"></i>
-                            </a>
+                <div class="project-card bg-nuxt-dark rounded-xl overflow-hidden border border-nuxt-gray hover:border-purple-500 hover:shadow-lg hover:shadow-purple-500/20 transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 group scroll-animate stagger-3">
+                    <!-- Browser Header -->
+                    <div class="flex items-center justify-between p-4 bg-nuxt-gray-dark border-b border-nuxt-gray">
+                        <div class="flex items-center space-x-2">
+                            <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-green-500"></div>
                         </div>
-                        <p class="text-gray-300 mb-4">E-commerce platform for products not available in the Philippines</p>
-                        <p class="text-sm text-gray-400 mb-4">Full-Stack Developer • January 2019</p>
+                        <a href="http://galleon.ph" target="_blank" class="text-nuxt-gray-lighter hover:text-purple-400 transition-colors">
+                            <i class="fas fa-external-link-alt text-sm"></i>
+                        </a>
+                    </div>
+
+                    <!-- Project Visual -->
+                    <div class="h-48 bg-gradient-to-br from-purple-600/20 to-purple-800/20 flex items-center justify-center relative overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-br from-purple-600/10 to-purple-800/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                        <i class="fas fa-ship text-6xl text-purple-500 group-hover:scale-110 transition-transform duration-500"></i>
+                        <div class="absolute top-4 right-4 bg-purple-500/20 backdrop-blur-sm rounded-full px-3 py-1 text-xs font-medium text-purple-400">
+                            E-commerce
+                        </div>
+                    </div>
+
+                    <!-- Content -->
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-nuxt-white mb-2 group-hover:text-purple-400 transition-colors">Galleon PH</h3>
+                        <p class="text-nuxt-gray-lighter text-sm mb-4 leading-relaxed">E-commerce platform for products not available in the Philippines with seamless international shipping.</p>
+                        <p class="text-xs text-nuxt-gray-light mb-4">Full-Stack Developer • January 2019</p>
+
+                        <!-- Tech Stack -->
                         <div class="flex flex-wrap gap-2">
-                            <span class="bg-purple-500/20 text-purple-400 px-2 py-1 rounded text-xs">E-commerce</span>
-                            <span class="bg-blue-500/20 text-blue-400 px-2 py-1 rounded text-xs">Full-Stack</span>
-                            <span class="bg-green-500/20 text-green-400 px-2 py-1 rounded text-xs">PHP</span>
+                            <span class="bg-purple-500/10 text-purple-400 px-2 py-1 rounded-full text-xs font-medium border border-purple-500/20">E-commerce</span>
+                            <span class="bg-blue-500/10 text-blue-400 px-2 py-1 rounded-full text-xs font-medium border border-blue-500/20">Full-Stack</span>
+                            <span class="bg-indigo-500/10 text-indigo-400 px-2 py-1 rounded-full text-xs font-medium border border-indigo-500/20">PHP</span>
                         </div>
                     </div>
                 </div>
 
                 <!-- TripZeeker -->
-                <div class="bg-gray-800 rounded-lg overflow-hidden border border-gray-700 hover:border-yellow-500 transition-all duration-300 transform hover:scale-105 group scroll-animate stagger-4">
-                    <div class="p-6">
-                        <div class="flex items-center justify-between mb-4">
-                            <h3 class="text-xl font-semibold text-yellow-400">TripZeeker</h3>
-                            <a href="http://tripzeeker.com" target="_blank" class="text-gray-400 hover:text-white transition-colors">
-                                <i class="fas fa-external-link-alt"></i>
-                            </a>
+                <div class="project-card bg-nuxt-dark rounded-xl overflow-hidden border border-nuxt-gray hover:border-orange-500 hover:shadow-lg hover:shadow-orange-500/20 transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 group scroll-animate stagger-4">
+                    <!-- Browser Header -->
+                    <div class="flex items-center justify-between p-4 bg-nuxt-gray-dark border-b border-nuxt-gray">
+                        <div class="flex items-center space-x-2">
+                            <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-green-500"></div>
                         </div>
-                        <p class="text-gray-300 mb-4">Online Bazaar of Travel Experiences</p>
-                        <p class="text-sm text-gray-400 mb-4">Full-Stack Developer • January 2018</p>
+                        <a href="http://tripzeeker.com" target="_blank" class="text-nuxt-gray-lighter hover:text-orange-400 transition-colors">
+                            <i class="fas fa-external-link-alt text-sm"></i>
+                        </a>
+                    </div>
+
+                    <!-- Project Visual -->
+                    <div class="h-48 bg-gradient-to-br from-orange-600/20 to-orange-800/20 flex items-center justify-center relative overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-br from-orange-600/10 to-orange-800/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                        <i class="fas fa-map-marked-alt text-6xl text-orange-500 group-hover:scale-110 transition-transform duration-500"></i>
+                        <div class="absolute top-4 right-4 bg-orange-500/20 backdrop-blur-sm rounded-full px-3 py-1 text-xs font-medium text-orange-400">
+                            Travel
+                        </div>
+                    </div>
+
+                    <!-- Content -->
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-nuxt-white mb-2 group-hover:text-orange-400 transition-colors">TripZeeker</h3>
+                        <p class="text-nuxt-gray-lighter text-sm mb-4 leading-relaxed">Online Bazaar of Travel Experiences connecting travelers with unique local adventures and experiences.</p>
+                        <p class="text-xs text-nuxt-gray-light mb-4">Full-Stack Developer • January 2018</p>
+
+                        <!-- Tech Stack -->
                         <div class="flex flex-wrap gap-2">
-                            <span class="bg-yellow-500/20 text-yellow-400 px-2 py-1 rounded text-xs">Travel</span>
-                            <span class="bg-blue-500/20 text-blue-400 px-2 py-1 rounded text-xs">Marketplace</span>
-                            <span class="bg-green-500/20 text-green-400 px-2 py-1 rounded text-xs">Full-Stack</span>
+                            <span class="bg-orange-500/10 text-orange-400 px-2 py-1 rounded-full text-xs font-medium border border-orange-500/20">Travel</span>
+                            <span class="bg-blue-500/10 text-blue-400 px-2 py-1 rounded-full text-xs font-medium border border-blue-500/20">Marketplace</span>
+                            <span class="bg-purple-500/10 text-purple-400 px-2 py-1 rounded-full text-xs font-medium border border-purple-500/20">Full-Stack</span>
                         </div>
                     </div>
                 </div>
 
                 <!-- Jobayan -->
-                <div class="bg-gray-800 rounded-lg overflow-hidden border border-gray-700 hover:border-red-500 transition-all duration-300 transform hover:scale-105 group scroll-animate stagger-5">
-                    <div class="p-6">
-                        <div class="flex items-center justify-between mb-4">
-                            <h3 class="text-xl font-semibold text-red-400">Jobayan</h3>
-                            <a href="http://jobayan.com" target="_blank" class="text-gray-400 hover:text-white transition-colors">
-                                <i class="fas fa-external-link-alt"></i>
-                            </a>
+                <div class="project-card bg-nuxt-dark rounded-xl overflow-hidden border border-nuxt-gray hover:border-yellow-500 hover:shadow-lg hover:shadow-yellow-500/20 transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 group scroll-animate stagger-5">
+                    <!-- Browser Header -->
+                    <div class="flex items-center justify-between p-4 bg-nuxt-gray-dark border-b border-nuxt-gray">
+                        <div class="flex items-center space-x-2">
+                            <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-green-500"></div>
                         </div>
-                        <p class="text-gray-300 mb-4">Fastest Growing Job Community, the Millennial Way to Find Jobs</p>
-                        <p class="text-sm text-gray-400 mb-4">Full-Stack Developer • January 2017</p>
+                        <a href="http://jobayan.com" target="_blank" class="text-nuxt-gray-lighter hover:text-yellow-400 transition-colors">
+                            <i class="fas fa-external-link-alt text-sm"></i>
+                        </a>
+                    </div>
+
+                    <!-- Project Visual -->
+                    <div class="h-48 bg-gradient-to-br from-yellow-600/20 to-amber-600/20 flex items-center justify-center relative overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-br from-yellow-600/10 to-amber-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                        <i class="fas fa-briefcase text-6xl text-yellow-500 group-hover:scale-110 transition-transform duration-500"></i>
+                        <div class="absolute top-4 right-4 bg-yellow-500/20 backdrop-blur-sm rounded-full px-3 py-1 text-xs font-medium text-yellow-400">
+                            Jobs
+                        </div>
+                    </div>
+
+                    <!-- Content -->
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-nuxt-white mb-2 group-hover:text-yellow-400 transition-colors">Jobayan</h3>
+                        <p class="text-nuxt-gray-lighter text-sm mb-4 leading-relaxed">Fastest Growing Job Community, the Millennial Way to Find Jobs with smart matching algorithms.</p>
+                        <p class="text-xs text-nuxt-gray-light mb-4">Full-Stack Developer • January 2017</p>
+
+                        <!-- Tech Stack -->
                         <div class="flex flex-wrap gap-2">
-                            <span class="bg-red-500/20 text-red-400 px-2 py-1 rounded text-xs">Job Portal</span>
-                            <span class="bg-blue-500/20 text-blue-400 px-2 py-1 rounded text-xs">Community</span>
-                            <span class="bg-green-500/20 text-green-400 px-2 py-1 rounded text-xs">Full-Stack</span>
+                            <span class="bg-yellow-500/10 text-yellow-400 px-2 py-1 rounded-full text-xs font-medium border border-yellow-500/20">Job Portal</span>
+                            <span class="bg-amber-500/10 text-amber-400 px-2 py-1 rounded-full text-xs font-medium border border-amber-500/20">Community</span>
+                            <span class="bg-green-500/10 text-green-400 px-2 py-1 rounded-full text-xs font-medium border border-green-500/20">Full-Stack</span>
                         </div>
                     </div>
                 </div>
 
                 <!-- ShippingCart -->
-                <div class="bg-gray-800 rounded-lg overflow-hidden border border-gray-700 hover:border-indigo-500 transition-all duration-300 transform hover:scale-105 group scroll-animate stagger-6">
-                    <div class="p-6">
-                        <div class="flex items-center justify-between mb-4">
-                            <h3 class="text-xl font-semibold text-indigo-400">ShippingCart</h3>
-                            <a href="http://www.shippingcart.com" target="_blank" class="text-gray-400 hover:text-white transition-colors">
-                                <i class="fas fa-external-link-alt"></i>
-                            </a>
+                <div class="project-card bg-nuxt-dark rounded-xl overflow-hidden border border-nuxt-gray hover:border-emerald-500 hover:shadow-lg hover:shadow-emerald-500/20 transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 group scroll-animate stagger-6">
+                    <!-- Browser Header -->
+                    <div class="flex items-center justify-between p-4 bg-nuxt-gray-dark border-b border-nuxt-gray">
+                        <div class="flex items-center space-x-2">
+                            <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-green-500"></div>
                         </div>
-                        <p class="text-gray-300 mb-4">Large scale website built with Node.js framework</p>
-                        <p class="text-sm text-gray-400 mb-4">Front-End Developer • October 2014</p>
+                        <a href="http://www.shippingcart.com" target="_blank" class="text-nuxt-gray-lighter hover:text-emerald-400 transition-colors">
+                            <i class="fas fa-external-link-alt text-sm"></i>
+                        </a>
+                    </div>
+
+                    <!-- Project Visual -->
+                    <div class="h-48 bg-gradient-to-br from-emerald-600/20 to-teal-600/20 flex items-center justify-center relative overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-br from-emerald-600/10 to-teal-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                        <i class="fas fa-shipping-fast text-6xl text-emerald-500 group-hover:scale-110 transition-transform duration-500"></i>
+                        <div class="absolute top-4 right-4 bg-emerald-500/20 backdrop-blur-sm rounded-full px-3 py-1 text-xs font-medium text-emerald-400">
+                            Node.js
+                        </div>
+                    </div>
+
+                    <!-- Content -->
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-nuxt-white mb-2 group-hover:text-emerald-400 transition-colors">ShippingCart</h3>
+                        <p class="text-nuxt-gray-lighter text-sm mb-4 leading-relaxed">Large scale website built with Node.js framework for efficient shipping and logistics management.</p>
+                        <p class="text-xs text-nuxt-gray-light mb-4">Frontend Developer • October 2014</p>
+
+                        <!-- Tech Stack -->
                         <div class="flex flex-wrap gap-2">
-                            <span class="bg-indigo-500/20 text-indigo-400 px-2 py-1 rounded text-xs">Node.js</span>
-                            <span class="bg-blue-500/20 text-blue-400 px-2 py-1 rounded text-xs">Shipping</span>
-                            <span class="bg-green-500/20 text-green-400 px-2 py-1 rounded text-xs">Frontend</span>
+                            <span class="bg-emerald-500/10 text-emerald-400 px-2 py-1 rounded-full text-xs font-medium border border-emerald-500/20">Node.js</span>
+                            <span class="bg-blue-500/10 text-blue-400 px-2 py-1 rounded-full text-xs font-medium border border-blue-500/20">Shipping</span>
+                            <span class="bg-teal-500/10 text-teal-400 px-2 py-1 rounded-full text-xs font-medium border border-teal-500/20">Frontend</span>
                         </div>
                     </div>
                 </div>
@@ -377,153 +947,311 @@
     </section>
 
     <!-- Experience Section -->
-    <section id="experience" class="py-20 px-4">
-        <div class="max-w-6xl mx-auto">
-            <h2 class="text-4xl font-bold text-center mb-16 bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent scroll-animate">
-                Experience
+    <section id="experience" class="py-20 px-4 relative overflow-hidden">
+        <!-- Animated Code Blocks Background -->
+        <div class="absolute inset-0 opacity-20 pointer-events-none z-0 parallax-bg">
+            <!-- HTML Tags -->
+            <div class="absolute top-20 left-16 text-nuxt-info font-mono text-lg animate-float transform hover:scale-110 transition-transform">&lt;div&gt;</div>
+            <div class="absolute top-32 right-20 text-nuxt-success font-mono text-base animate-pulse">&lt;/section&gt;</div>
+            <div class="absolute bottom-32 left-24 text-nuxt-done font-mono text-lg animate-bounce" style="animation-duration: 3s;">&lt;html&gt;</div>
+
+            <!-- CSS Properties -->
+            <div class="absolute top-1/3 left-1/4 text-nuxt-info font-mono text-sm animate-float">display: flex;</div>
+            <div class="absolute bottom-1/4 right-1/3 text-nuxt-gray-dark font-mono text-sm animate-float" style="animation-delay: 2s;">position: relative;</div>
+            <div class="absolute top-1/2 right-1/6 text-nuxt-success font-mono text-sm animate-float" style="animation-delay: 1.5s;">margin: 0 auto;</div>
+
+            <!-- JavaScript Code Snippets -->
+            <div class="absolute top-1/6 left-1/12 text-nuxt-info opacity-40 font-mono text-xs animate-float" style="animation-delay: 0s;">
+                const portfolio = {<br>&nbsp;&nbsp;skills: ['Vue.js']<br>}
+            </div>
+            <div class="absolute bottom-1/5 right-1/8 text-nuxt-done opacity-40 font-mono text-xs animate-float" style="animation-delay: 3s;">
+                function developer() {<br>&nbsp;&nbsp;return 'awesome';<br>}
+            </div>
+
+            <!-- CSS Selectors and Properties -->
+            <div class="absolute top-2/3 right-1/4 text-nuxt-gray-dark font-mono text-sm animate-float" style="animation-delay: 4s;">.hero-section</div>
+            <div class="absolute top-1/2 left-1/6 text-nuxt-info font-mono text-sm animate-float" style="animation-delay: 1.5s;">#main-content</div>
+            <div class="absolute bottom-1/3 left-1/3 text-nuxt-success font-mono text-sm animate-float" style="animation-delay: 2.5s;">@media (max-width: 768px)</div>
+
+            <!-- HTML5 Semantic Tags -->
+            <div class="absolute top-16 right-32 text-nuxt-info opacity-40 font-mono text-sm animate-float" style="animation-delay: 1s;">
+                &lt;header&gt;<br>&nbsp;&nbsp;&lt;nav&gt;...&lt;/nav&gt;<br>&lt;/header&gt;
+            </div>
+            <div class="absolute bottom-20 left-32 text-nuxt-success opacity-40 font-mono text-sm animate-float" style="animation-delay: 3s;">
+                &lt;main&gt;<br>&nbsp;&nbsp;&lt;article&gt;...&lt;/article&gt;<br>&lt;/main&gt;
+            </div>
+
+            <!-- CSS Framework Classes -->
+            <div class="absolute top-0 left-0 w-full h-full">
+                <div class="absolute top-1/4 left-1/6 text-nuxt-info font-mono text-xs animate-ping" style="animation-delay: 0s;">.container</div>
+                <div class="absolute top-1/2 left-1/3 text-nuxt-success font-mono text-xs animate-ping" style="animation-delay: 2s;">.flex-center</div>
+                <div class="absolute top-3/4 right-1/4 text-nuxt-done font-mono text-xs animate-ping" style="animation-delay: 4s;">.responsive</div>
+                <div class="absolute top-1/6 right-1/6 text-nuxt-info opacity-40 font-mono text-xs animate-ping" style="animation-delay: 1s;">.grid-layout</div>
+                <div class="absolute bottom-1/6 left-1/2 text-nuxt-gray-dark font-mono text-xs animate-ping" style="animation-delay: 3s;">.animate-fade</div>
+            </div>
+
+            <!-- CSS Values and Units -->
+            <div class="absolute top-40 left-1/3 text-nuxt-info font-mono text-xs animate-float" style="animation-delay: 1.5s;">100vh</div>
+            <div class="absolute bottom-40 right-1/4 text-nuxt-success font-mono text-xs animate-float" style="animation-delay: 2.5s;">rgba(0,0,0,0.8)</div>
+            <div class="absolute top-1/3 right-1/5 text-nuxt-done font-mono text-xs animate-float" style="animation-delay: 0.5s;">2rem</div>
+            <div class="absolute bottom-1/4 left-1/5 text-nuxt-gray-dark font-mono text-xs animate-float" style="animation-delay: 3.5s;">transform: scale(1.2)</div>
+
+            <!-- ADDED: More Experience-Specific Code Blocks -->
+            <div class="absolute top-1/10 left-3/4 text-nuxt-success font-mono text-xs animate-float" style="animation-delay: 6.1s;">&lt;div class="timeline-item"&gt;&lt;/div&gt;</div>
+            <div class="absolute bottom-3/4 right-1/6 text-nuxt-info font-mono text-xs animate-float" style="animation-delay: 6.6s;">.timeline-node { background: #nuxt-green; }</div>
+            <div class="absolute top-4/5 left-1/8 text-nuxt-gray-dark font-mono text-xs animate-float" style="animation-delay: 7.1s;">const experience = years.filter(job => job.active);</div>
+            <div class="absolute bottom-1/9 right-1/3 text-nuxt-done opacity-40 font-mono text-xs animate-float" style="animation-delay: 7.6s;">&lt;ul&gt;&lt;li&gt;Responsibility 1&lt;/li&gt;&lt;/ul&gt;</div>
+            <div class="absolute top-1/8 right-1/7 text-nuxt-green font-mono text-xs animate-float" style="animation-delay: 8.1s;">toggleDetails = (id) => { /* ... */ }</div>
+        </div>
+        <div class="max-w-6xl mx-auto relative z-10">
+            <h2 class="text-4xl font-bold text-center mb-16 bg-gradient-to-r from-nuxt-green to-nuxt-info bg-clip-text text-transparent scroll-animate">
+                Work Experience
             </h2>
-            <div class="space-y-12">
-                <!-- BCS Technology -->
-                <div class="bg-gray-800 rounded-lg p-8 border border-gray-700 hover:border-blue-500 transition-all duration-300 scroll-animate stagger-1">
-                    <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
-                        <div>
-                            <h3 class="text-2xl font-semibold text-blue-400">Senior Front-end Web Developer</h3>
-                            <h4 class="text-xl text-gray-300 mt-1">BCS Technology International Pty Ltd</h4>
-                        </div>
-                        <div class="text-gray-400 mt-2 md:mt-0">
-                            <i class="fas fa-calendar-alt mr-2"></i>
-                            April 2019 - Present
-                        </div>
-                    </div>
-                    <ul class="text-gray-300 space-y-2">
-                        <li class="flex items-start">
-                            <i class="fas fa-check-circle text-green-400 mr-3 mt-1"></i>
-                            Developing user-facing applications using Vue.js
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-check-circle text-green-400 mr-3 mt-1"></i>
-                            Building modular and reusable components and libraries
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-check-circle text-green-400 mr-3 mt-1"></i>
-                            Optimizing applications for performance
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-check-circle text-green-400 mr-3 mt-1"></i>
-                            API Integration from multiple services and state management
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-check-circle text-green-400 mr-3 mt-1"></i>
-                            Conceptualisation, planning and implementation of frontend architectures
-                        </li>
-                    </ul>
-                </div>
 
-                <!-- Sterling Technologies -->
-                <div class="bg-gray-800 rounded-lg p-8 border border-gray-700 hover:border-purple-500 transition-all duration-300 scroll-animate stagger-2">
-                    <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
-                        <div>
-                            <h3 class="text-2xl font-semibold text-purple-400">Web Developer</h3>
-                            <h4 class="text-xl text-gray-300 mt-1">Sterling Technologies</h4>
-                        </div>
-                        <div class="text-gray-400 mt-2 md:mt-0">
-                            <i class="fas fa-calendar-alt mr-2"></i>
-                            March 2014 - April 2019
-                        </div>
-                    </div>
-                    <ul class="text-gray-300 space-y-2">
-                        <li class="flex items-start">
-                            <i class="fas fa-check-circle text-green-400 mr-3 mt-1"></i>
-                            Developing and maintaining front-end functionality of websites
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-check-circle text-green-400 mr-3 mt-1"></i>
-                            Writing cross-browser compliant XHTML, CSS & JavaScript
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-check-circle text-green-400 mr-3 mt-1"></i>
-                            Creating websites that are user-friendly, effective and appealing
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-check-circle text-green-400 mr-3 mt-1"></i>
-                            Optimizing web assets for optimal speed and performance
-                        </li>
-                    </ul>
-                </div>
+            <!-- Timeline Container -->
+            <div class="relative">
+                <!-- Central Timeline Line -->
+                <div class="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-gradient-to-b from-nuxt-green via-nuxt-info to-nuxt-done"></div>
 
-                <!-- Cyber City Teleservices -->
-                <div class="bg-gray-800 rounded-lg p-8 border border-gray-700 hover:border-green-500 transition-all duration-300 scroll-animate stagger-3">
-                    <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
-                        <div>
-                            <h3 class="text-2xl font-semibold text-green-400">MIS Specialist</h3>
-                            <h4 class="text-xl text-gray-300 mt-1">Cyber City Teleservices</h4>
+                <!-- Timeline Items -->
+                <div class="space-y-12">
+                    <!-- BCS Technology - Right Side -->
+                    <div class="relative flex items-center timeline-item scroll-animate stagger-1">
+                        <!-- Timeline Node -->
+                        <div class="absolute left-1/2 transform -translate-x-1/2 w-6 h-6 bg-nuxt-green rounded-full border-4 border-nuxt-dark z-10 timeline-node">
+                            <div class="absolute inset-0 bg-nuxt-green rounded-full animate-ping opacity-75"></div>
                         </div>
-                        <div class="text-gray-400 mt-2 md:mt-0">
-                            <i class="fas fa-calendar-alt mr-2"></i>
-                            February 2011 - April 2013
+
+                        <!-- Card on Right -->
+                        <div class="w-full flex">
+                            <div class="w-1/2"></div> <!-- Left spacer -->
+                            <div class="w-1/2 pl-8">
+                                <div class="bg-nuxt-dark rounded-lg p-6 border border-nuxt-gray hover:border-nuxt-green hover:shadow-lg hover:shadow-nuxt-green/20 transition-all duration-300 transform hover:scale-105 group">
+                                    <!-- Connection Line -->
+                                    <div class="absolute left-1/2 top-1/2 w-8 h-0.5 bg-nuxt-green transform -translate-y-1/2"></div>
+
+                                    <div class="mb-4">
+                                        <h3 class="text-xl font-semibold text-nuxt-green group-hover:text-nuxt-white transition-colors">Senior Front-end Web Developer</h3>
+                                        <h4 class="text-lg text-nuxt-gray-lighter mt-1">BCS Technology International Pty Ltd</h4>
+                                        <div class="text-sm text-nuxt-gray-light mt-2 flex items-center">
+                                            <i class="fas fa-calendar-alt mr-2 text-nuxt-green"></i>
+                                            April 2019 - Present
+                                        </div>
+                                    </div>
+                                    <ul class="text-nuxt-gray-lighter space-y-2 text-sm">
+                                        <li class="flex items-start">
+                                            <i class="fas fa-check-circle text-nuxt-green mr-2 mt-0.5 text-xs"></i>
+                                            Developing user-facing applications using Vue.js
+                                        </li>
+                                        <li class="flex items-start">
+                                            <i class="fas fa-check-circle text-nuxt-green mr-2 mt-0.5 text-xs"></i>
+                                            Building modular and reusable components and libraries
+                                        </li>
+                                        <li class="flex items-start">
+                                            <i class="fas fa-check-circle text-nuxt-green mr-2 mt-0.5 text-xs"></i>
+                                            API Integration from multiple services and state management
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <ul class="text-gray-300 space-y-2">
-                        <li class="flex items-start">
-                            <i class="fas fa-check-circle text-green-400 mr-3 mt-1"></i>
-                            Quality assurance review through multiple QA programs and website validations
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-check-circle text-green-400 mr-3 mt-1"></i>
-                            Maintaining data quality, validity, verification and compliance
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-check-circle text-green-400 mr-3 mt-1"></i>
-                            Generated and managed 200+ reports daily and weekly for 50+ clients
-                        </li>
-                    </ul>
+
+                    <!-- Sterling Technologies - Left Side -->
+                    <div class="relative flex items-center timeline-item scroll-animate stagger-2">
+                        <!-- Timeline Node -->
+                        <div class="absolute left-1/2 transform -translate-x-1/2 w-6 h-6 bg-purple-500 rounded-full border-4 border-nuxt-dark z-10 timeline-node">
+                            <div class="absolute inset-0 bg-purple-500 rounded-full animate-ping opacity-75"></div>
+                        </div>
+
+                        <!-- Card on Left -->
+                        <div class="w-full flex">
+                            <div class="w-1/2 pr-8">
+                                <div class="bg-nuxt-dark rounded-lg p-6 border border-nuxt-gray hover:border-purple-500 hover:shadow-lg hover:shadow-purple-500/20 transition-all duration-300 transform hover:scale-105 group">
+                                    <!-- Connection Line -->
+                                    <div class="absolute right-1/2 top-1/2 w-8 h-0.5 bg-purple-500 transform -translate-y-1/2"></div>
+
+                                    <div class="mb-4 text-right">
+                                        <h3 class="text-xl font-semibold text-purple-400 group-hover:text-nuxt-white transition-colors">Web Developer</h3>
+                                        <h4 class="text-lg text-nuxt-gray-lighter mt-1">Sterling Technologies</h4>
+                                        <div class="text-sm text-nuxt-gray-light mt-2 flex items-center justify-end">
+                                            <span>March 2014 - April 2019</span>
+                                            <i class="fas fa-calendar-alt ml-2 text-purple-400"></i>
+                                        </div>
+                                    </div>
+                                    <ul class="text-nuxt-gray-lighter space-y-2 text-sm">
+                                        <li class="flex items-start justify-end text-right">
+                                            <span class="flex-1">Developing and maintaining front-end functionality of websites</span>
+                                            <i class="fas fa-check-circle text-purple-400 ml-2 mt-0.5 text-xs"></i>
+                                        </li>
+                                        <li class="flex items-start justify-end text-right">
+                                            <span class="flex-1">Writing cross-browser compliant XHTML, CSS & JavaScript</span>
+                                            <i class="fas fa-check-circle text-purple-400 ml-2 mt-0.5 text-xs"></i>
+                                        </li>
+                                        <li class="flex items-start justify-end text-right">
+                                            <span class="flex-1">Creating websites that are user-friendly, effective and appealing</span>
+                                            <i class="fas fa-check-circle text-purple-400 ml-2 mt-0.5 text-xs"></i>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="w-1/2"></div> <!-- Right spacer -->
+                        </div>
+                    </div>
+
+                    <!-- Cyber City Teleservices - Right Side -->
+                    <div class="relative flex items-center timeline-item scroll-animate stagger-3">
+                        <!-- Timeline Node -->
+                        <div class="absolute left-1/2 transform -translate-x-1/2 w-6 h-6 bg-blue-500 rounded-full border-4 border-nuxt-dark z-10 timeline-node">
+                            <div class="absolute inset-0 bg-blue-500 rounded-full animate-ping opacity-75"></div>
+                        </div>
+
+                        <!-- Card on Right -->
+                        <div class="w-full flex">
+                            <div class="w-1/2"></div> <!-- Left spacer -->
+                            <div class="w-1/2 pl-8">
+                                <div class="bg-nuxt-dark rounded-lg p-6 border border-nuxt-gray hover:border-blue-500 hover:shadow-lg hover:shadow-blue-500/20 transition-all duration-300 transform hover:scale-105 group">
+                                    <!-- Connection Line -->
+                                    <div class="absolute left-1/2 top-1/2 w-8 h-0.5 bg-blue-500 transform -translate-y-1/2"></div>
+
+                                    <div class="mb-4">
+                                        <h3 class="text-xl font-semibold text-blue-400 group-hover:text-nuxt-white transition-colors">MIS Specialist</h3>
+                                        <h4 class="text-lg text-nuxt-gray-lighter mt-1">Cyber City Teleservices</h4>
+                                        <div class="text-sm text-nuxt-gray-light mt-2 flex items-center">
+                                            <i class="fas fa-calendar-alt mr-2 text-blue-400"></i>
+                                            February 2011 - April 2013
+                                        </div>
+                                    </div>
+                                    <ul class="text-nuxt-gray-lighter space-y-2 text-sm">
+                                        <li class="flex items-start">
+                                            <i class="fas fa-check-circle text-blue-400 mr-2 mt-0.5 text-xs"></i>
+                                            Quality assurance review through multiple QA programs
+                                        </li>
+                                        <li class="flex items-start">
+                                            <i class="fas fa-check-circle text-blue-400 mr-2 mt-0.5 text-xs"></i>
+                                            Maintaining data quality, validity, verification and compliance
+                                        </li>
+                                        <li class="flex items-start">
+                                            <i class="fas fa-check-circle text-blue-400 mr-2 mt-0.5 text-xs"></i>
+                                            Generated and managed 200+ reports daily for 50+ clients
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="py-20 px-4 bg-gray-800/50">
-        <div class="max-w-4xl mx-auto text-center">
-            <h2 class="text-4xl font-bold mb-8 bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent scroll-animate">
+    <section id="contact" class="py-20 px-4 bg-nuxt-dark/30 relative overflow-hidden">
+        <!-- Animated Code Blocks Background -->
+        <div class="absolute inset-0 opacity-20 pointer-events-none z-0 parallax-bg">
+            <!-- HTML Tags -->
+            <div class="absolute top-20 left-16 text-nuxt-info font-mono text-lg animate-float transform hover:scale-110 transition-transform">&lt;div&gt;</div>
+            <div class="absolute top-32 right-20 text-nuxt-success font-mono text-base animate-pulse">&lt;/section&gt;</div>
+            <div class="absolute bottom-32 left-24 text-nuxt-done font-mono text-lg animate-bounce" style="animation-duration: 3s;">&lt;html&gt;</div>
+
+            <!-- CSS Properties -->
+            <div class="absolute top-1/3 left-1/4 text-nuxt-info font-mono text-sm animate-float">display: flex;</div>
+            <div class="absolute bottom-1/4 right-1/3 text-nuxt-gray-dark font-mono text-sm animate-float" style="animation-delay: 2s;">position: relative;</div>
+            <div class="absolute top-1/2 right-1/6 text-nuxt-success font-mono text-sm animate-float" style="animation-delay: 1.5s;">margin: 0 auto;</div>
+
+            <!-- JavaScript Code Snippets -->
+            <div class="absolute top-1/6 left-1/12 text-nuxt-info opacity-40 font-mono text-xs animate-float" style="animation-delay: 0s;">
+                const portfolio = {<br>&nbsp;&nbsp;skills: ['Vue.js']<br>}
+            </div>
+            <div class="absolute bottom-1/5 right-1/8 text-nuxt-done opacity-40 font-mono text-xs animate-float" style="animation-delay: 3s;">
+                function developer() {<br>&nbsp;&nbsp;return 'awesome';<br>}
+            </div>
+
+            <!-- CSS Selectors and Properties -->
+            <div class="absolute top-2/3 right-1/4 text-nuxt-gray-dark font-mono text-sm animate-float" style="animation-delay: 4s;">.hero-section</div>
+            <div class="absolute top-1/2 left-1/6 text-nuxt-info font-mono text-sm animate-float" style="animation-delay: 1.5s;">#main-content</div>
+            <div class="absolute bottom-1/3 left-1/3 text-nuxt-success font-mono text-sm animate-float" style="animation-delay: 2.5s;">@media (max-width: 768px)</div>
+
+            <!-- HTML5 Semantic Tags -->
+            <div class="absolute top-16 right-32 text-nuxt-info opacity-40 font-mono text-sm animate-float" style="animation-delay: 1s;">
+                &lt;header&gt;<br>&nbsp;&nbsp;&lt;nav&gt;...&lt;/nav&gt;<br>&lt;/header&gt;
+            </div>
+            <div class="absolute bottom-20 left-32 text-nuxt-success opacity-40 font-mono text-sm animate-float" style="animation-delay: 3s;">
+                &lt;main&gt;<br>&nbsp;&nbsp;&lt;article&gt;...&lt;/article&gt;<br>&lt;/main&gt;
+            </div>
+
+            <!-- CSS Framework Classes -->
+            <div class="absolute top-0 left-0 w-full h-full">
+                <div class="absolute top-1/4 left-1/6 text-nuxt-info font-mono text-xs animate-ping" style="animation-delay: 0s;">.container</div>
+                <div class="absolute top-1/2 left-1/3 text-nuxt-success font-mono text-xs animate-ping" style="animation-delay: 2s;">.flex-center</div>
+                <div class="absolute top-3/4 right-1/4 text-nuxt-done font-mono text-xs animate-ping" style="animation-delay: 4s;">.responsive</div>
+                <div class="absolute top-1/6 right-1/6 text-nuxt-info opacity-40 font-mono text-xs animate-ping" style="animation-delay: 1s;">.grid-layout</div>
+                <div class="absolute bottom-1/6 left-1/2 text-nuxt-gray-dark font-mono text-xs animate-ping" style="animation-delay: 3s;">.animate-fade</div>
+            </div>
+
+            <!-- CSS Values and Units -->
+            <div class="absolute top-40 left-1/3 text-nuxt-info font-mono text-xs animate-float" style="animation-delay: 1.5s;">100vh</div>
+            <div class="absolute bottom-40 right-1/4 text-nuxt-success font-mono text-xs animate-float" style="animation-delay: 2.5s;">rgba(0,0,0,0.8)</div>
+            <div class="absolute top-1/3 right-1/5 text-nuxt-done font-mono text-xs animate-float" style="animation-delay: 0.5s;">2rem</div>
+            <div class="absolute bottom-1/4 left-1/5 text-nuxt-gray-dark font-mono text-xs animate-float" style="animation-delay: 3.5s;">transform: scale(1.2)</div>
+
+            <!-- ADDED: JS Snippet - Thank You Message -->
+            <div class="absolute top-2/5 right-1/4 text-nuxt-done opacity-50 font-mono text-xs animate-float" style="animation-delay: 5.5s;">console.log('Welcome!');</div>
+
+            <!-- ADDED: More About-Specific Code Blocks -->
+            <div class="absolute top-1/12 left-1/2 text-nuxt-success font-mono text-xs animate-float" style="animation-delay: 6.2s;">&lt;div class="bio"&gt;10+ years experience&lt;/div&gt;</div>
+            <div class="absolute bottom-3/4 right-2/5 text-nuxt-info font-mono text-xs animate-float" style="animation-delay: 6.7s;">.skills-list { list-style: none; }</div>
+            <div class="absolute top-4/5 left-1/10 text-nuxt-gray-dark font-mono text-xs animate-float" style="animation-delay: 7.2s;">const yearsExp = new Date().getFullYear() - 2014;</div>
+            <div class="absolute bottom-1/8 right-1/5 text-nuxt-done opacity-40 font-mono text-xs animate-float" style="animation-delay: 7.7s;">&lt;span class="expertise"&gt;Frontend&lt;/span&gt;</div>
+            <div class="absolute top-1/7 right-1/8 text-nuxt-success font-mono text-xs animate-float" style="animation-delay: 8.2s;">background: linear-gradient(45deg, #00DC82, #3B82F6);</div>
+
+            <!-- ADDED: More About-Specific Code Blocks -->
+            <div class="absolute top-1/13 left-4/5 text-nuxt-info font-mono text-xs animate-float" style="animation-delay: 8.7s;">&lt;article class="bio"&gt;...&lt;/article&gt;</div>
+            <div class="absolute bottom-4/5 right-1/12 text-nuxt-success font-mono text-xs animate-float" style="animation-delay: 9.2s;">.hobby { color: #nuxt-green; }</div>
+            <div class="absolute top-5/6 left-1/7 text-nuxt-gray-dark font-mono text-xs animate-float" style="animation-delay: 9.7s;">const skills = ['Vue.js', 'JavaScript'];</div>
+            <div class="absolute bottom-1/10 right-2/5 text-nuxt-done opacity-40 font-mono text-xs animate-float" style="animation-delay: 10.2s;">&lt;span class="tag"&gt;React&lt;/span&gt;</div>
+            <div class="absolute top-1/9 right-1/5 text-nuxt-info font-mono text-xs animate-float" style="animation-delay: 10.7s;">.button { padding: 10px 20px; }</div>
+        </div>
+        <div class="max-w-4xl mx-auto text-center relative z-10">
+            <h2 class="text-4xl font-bold mb-8 bg-gradient-to-r from-nuxt-green to-nuxt-info bg-clip-text text-transparent scroll-animate">
                 Let's Work Together
             </h2>
-            <p class="text-xl text-gray-300 mb-12 scroll-animate stagger-1">
+            <p class="text-xl text-nuxt-gray-lighter mb-12 scroll-animate stagger-1">
                 Ready to bring your ideas to life? Let's create something amazing together.
             </p>
             <div class="grid md:grid-cols-3 gap-8 mb-12">
-                <div class="bg-gray-800 p-6 rounded-lg border border-gray-700 hover:border-blue-500 transition-all duration-300 transform hover:scale-105 scroll-animate stagger-2">
-                    <i class="fas fa-envelope text-blue-400 text-3xl mb-4"></i>
-                    <h3 class="text-xl font-semibold mb-2">Email</h3>
-                    <a href="mailto:rujealfon@gmail.com" class="text-gray-300 hover:text-blue-400 transition-colors">
+                <div class="bg-nuxt-dark p-6 rounded-lg border border-nuxt-gray hover:border-nuxt-info hover:shadow-lg hover:shadow-nuxt-info/20 transition-all duration-300 transform hover:scale-105 hover:-translate-y-2 group scroll-animate stagger-2">
+                    <i class="fas fa-envelope text-nuxt-info text-3xl mb-4 group-hover:animate-bounce"></i>
+                    <h3 class="text-xl font-semibold mb-2 text-nuxt-white group-hover:text-nuxt-info transition-colors">Email</h3>
+                    <a href="mailto:rujealfon@gmail.com" class="text-nuxt-gray-lighter hover:text-nuxt-info transition-colors">
                         rujealfon@gmail.com
                     </a>
                 </div>
-                <div class="bg-gray-800 p-6 rounded-lg border border-gray-700 hover:border-green-500 transition-all duration-300 transform hover:scale-105 scroll-animate stagger-3">
-                    <i class="fas fa-phone text-green-400 text-3xl mb-4"></i>
-                    <h3 class="text-xl font-semibold mb-2">Phone</h3>
-                    <a href="tel:+639053801178" class="text-gray-300 hover:text-green-400 transition-colors">
+                <div class="bg-nuxt-dark p-6 rounded-lg border border-nuxt-gray hover:border-nuxt-green hover:shadow-lg hover:shadow-nuxt-green/20 transition-all duration-300 transform hover:scale-105 hover:-translate-y-2 group scroll-animate stagger-3">
+                    <i class="fas fa-phone text-nuxt-green text-3xl mb-4 group-hover:animate-pulse"></i>
+                    <h3 class="text-xl font-semibold mb-2 text-nuxt-white group-hover:text-nuxt-green transition-colors">Phone</h3>
+                    <a href="tel:+639053801178" class="text-nuxt-gray-lighter hover:text-nuxt-green transition-colors">
                         +639053801178
                     </a>
                 </div>
-                <div class="bg-gray-800 p-6 rounded-lg border border-gray-700 hover:border-purple-500 transition-all duration-300 transform hover:scale-105 scroll-animate stagger-4">
-                    <i class="fas fa-globe text-purple-400 text-3xl mb-4"></i>
-                    <h3 class="text-xl font-semibold mb-2">Website</h3>
-                    <a href="http://rujealfon.github.io" target="_blank" class="text-gray-300 hover:text-purple-400 transition-colors">
+                <div class="bg-nuxt-dark p-6 rounded-lg border border-nuxt-gray hover:border-purple-500 hover:shadow-lg hover:shadow-purple-500/20 transition-all duration-300 transform hover:scale-105 hover:-translate-y-2 group scroll-animate stagger-4">
+                    <i class="fas fa-globe text-purple-400 text-3xl mb-4 group-hover:animate-spin" style="animation-duration: 2s;"></i>
+                    <h3 class="text-xl font-semibold mb-2 text-nuxt-white group-hover:text-purple-400 transition-colors">Website</h3>
+                    <a href="http://rujealfon.github.io" target="_blank" class="text-nuxt-gray-lighter hover:text-purple-400 transition-colors">
                         rujealfon.github.io
                     </a>
                 </div>
             </div>
-            <a href="mailto:rujealfon@gmail.com" class="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105 hover:animate-glow inline-block scroll-animate stagger-5">
+            <a href="mailto:rujealfon@gmail.com" class="bg-gradient-to-r from-nuxt-green to-nuxt-info hover:from-nuxt-info hover:to-nuxt-done px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105 hover:animate-glow inline-block scroll-animate stagger-5">
                 Start a Project
             </a>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="py-8 px-4 border-t border-gray-700">
+    <footer class="py-8 px-4 border-t border-nuxt-gray">
         <div class="max-w-6xl mx-auto text-center">
-            <p class="text-gray-400 scroll-animate">
+            <p class="text-nuxt-gray-light">
                 © 2024 Ruje Alfon. All rights reserved. Built with ❤️ and Tailwind CSS.
             </p>
         </div>
@@ -531,6 +1259,79 @@
 
     <!-- JavaScript for animations and interactions -->
     <script>
+        // Typewriter effect
+        function typeWriter() {
+            const textParts = [
+                { text: "Creating dynamic, rich and interesting web portals with ", highlight: false },
+                { text: "modern technologies", highlight: true },
+                { text: ". Specialized in ", highlight: false },
+                { text: "Vue.js", highlight: true },
+                { text: ", ", highlight: false },
+                { text: "JavaScript", highlight: true },
+                { text: ", and building user-friendly applications.", highlight: false }
+            ];
+
+            const typewriterElement = document.getElementById('typewriter-text');
+            const cursorElement = document.querySelector('.typewriter');
+            let partIndex = 0;
+            let charIndex = 0;
+
+            function type() {
+                if (partIndex < textParts.length) {
+                    const currentPart = textParts[partIndex];
+
+                    if (charIndex < currentPart.text.length) {
+                        if (charIndex === 0 && currentPart.highlight) {
+                            // Start a highlighted span
+                            const span = document.createElement('span');
+                            span.className = 'highlight-text';
+                            typewriterElement.appendChild(span);
+                        }
+
+                        const char = currentPart.text.charAt(charIndex);
+                        if (currentPart.highlight) {
+                            // Add to the last highlighted span
+                            const spans = typewriterElement.querySelectorAll('.highlight-text');
+                            const lastSpan = spans[spans.length - 1];
+                            lastSpan.textContent += char;
+                        } else {
+                            // Add to regular text
+                            typewriterElement.appendChild(document.createTextNode(char));
+                        }
+
+                        charIndex++;
+
+                        // Variable typing speed for more realistic effect
+                        let typingSpeed = 50;
+                        if (char === '.' || char === ',') {
+                            typingSpeed = 300; // Pause after punctuation
+                        } else if (char === ' ') {
+                            typingSpeed = 80; // Slight pause after spaces
+                        }
+
+                        setTimeout(type, typingSpeed);
+                    } else {
+                        // Move to next part
+                        partIndex++;
+                        charIndex = 0;
+                        setTimeout(type, 50);
+                    }
+                } else {
+                    // Keep cursor blinking for 2 seconds, then hide it
+                    setTimeout(() => {
+                        cursorElement.style.animation = 'none';
+                        cursorElement.style.borderColor = 'transparent';
+                    }, 2000);
+                }
+            }
+
+            // Start typing after a short delay
+            setTimeout(type, 1500);
+        }
+
+        // Start typewriter effect when page loads
+        document.addEventListener('DOMContentLoaded', typeWriter);
+
         // Mobile menu toggle
         const mobileMenuButton = document.getElementById('mobile-menu-button');
         const mobileMenu = document.getElementById('mobile-menu');
@@ -562,12 +1363,14 @@
         });
 
         // Parallax effect for hero background
+        /* Commented out old ID-based parallax - now using class-based
         const heroBg = document.getElementById('hero-bg');
         window.addEventListener('scroll', () => {
             const scrolled = window.pageYOffset;
             const rate = scrolled * -0.5;
             heroBg.style.transform = `translateY(${rate}px)`;
         });
+        */
 
         // Enhanced scroll animations with Intersection Observer
         const observerOptions = {
@@ -598,9 +1401,86 @@
                     } else if (entry.target.classList.contains('stagger-8')) {
                         entry.target.style.animationDelay = '0.8s';
                     }
+
+                    // Trigger About section specific animations
+                    if (entry.target.closest('#about')) {
+                        triggerAboutAnimations();
+                        triggerSkillProgressBars();
+                    }
                 }
             });
         }, observerOptions);
+
+        // About section animations
+        function triggerAboutAnimations() {
+            // Animate about text paragraphs
+            const aboutTexts = document.querySelectorAll('.about-text');
+            aboutTexts.forEach(text => {
+                text.style.opacity = '1';
+                text.style.transform = 'translateY(0)';
+            });
+
+            // Animate specialty badges
+            const specialtyBadges = document.querySelectorAll('.specialty-badges > div');
+            specialtyBadges.forEach(badge => {
+                badge.style.opacity = '1';
+                badge.style.transform = 'scale(1)';
+            });
+        }
+
+        // Skill progress bars animation
+        function triggerSkillProgressBars() {
+            const skillCards = document.querySelectorAll('.skill-card');
+            const progressBars = document.querySelectorAll('.skill-progress');
+
+            // Set different skill levels for each technology
+            const skillLevels = [95, 90, 98, 95, 85, 80, 88, 85]; // Percentages for each skill
+
+            progressBars.forEach((bar, index) => {
+                setTimeout(() => {
+                    bar.style.width = skillLevels[index] + '%';
+                }, (index * 200) + 500); // Stagger the animations
+            });
+        }
+
+        // Add click interactions to specialty badges
+        document.addEventListener('DOMContentLoaded', () => {
+            const specialtyBadges = document.querySelectorAll('.specialty-badges > div');
+
+            specialtyBadges.forEach(badge => {
+                badge.addEventListener('click', () => {
+                    // Create ripple effect
+                    const ripple = document.createElement('div');
+                    ripple.className = 'absolute inset-0 rounded-full bg-current opacity-20 animate-ping';
+                    badge.style.position = 'relative';
+                    badge.appendChild(ripple);
+
+                    // Remove ripple after animation
+                    setTimeout(() => {
+                        ripple.remove();
+                    }, 1000);
+                });
+            });
+
+            // Add hover effects to skill cards
+            const skillCards = document.querySelectorAll('.skill-card');
+            skillCards.forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    // Add floating animation to the icon
+                    const icon = card.querySelector('i, div');
+                    if (icon) {
+                        icon.style.transform = 'translateY(-5px)';
+                    }
+                });
+
+                card.addEventListener('mouseleave', () => {
+                    const icon = card.querySelector('i, div');
+                    if (icon) {
+                        icon.style.transform = 'translateY(0)';
+                    }
+                });
+            });
+        });
 
         // Observe all elements with scroll-animate class
         document.querySelectorAll('.scroll-animate').forEach(element => {
@@ -611,33 +1491,26 @@
         window.addEventListener('scroll', () => {
             const nav = document.querySelector('nav');
             if (window.scrollY > 50) {
-                nav.classList.add('bg-gray-900');
-                nav.classList.remove('bg-gray-900/95');
+                nav.classList.add('bg-nuxt-dark');
+                nav.classList.remove('bg-nuxt-dark/95');
             } else {
-                nav.classList.remove('bg-gray-900');
-                nav.classList.add('bg-gray-900/95');
+                nav.classList.remove('bg-nuxt-dark');
+                nav.classList.add('bg-nuxt-dark/95');
             }
         });
 
-        // Scroll progress indicator
-        window.addEventListener('scroll', () => {
-            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            const scrolled = (winScroll / height) * 100;
-
-            // You can use this scrolled percentage for progress bars or other animations
-            // For example, you could add a progress bar to the navigation
-        });
-
-        // Advanced scroll-based animations for specific elements
+        // Parallax effect for backgrounds with class 'parallax-bg'
         window.addEventListener('scroll', () => {
             const scrolled = window.pageYOffset;
-
-            // Parallax effect for floating background shapes
-            const floatingShapes = document.querySelectorAll('.animate-float');
-            floatingShapes.forEach((shape, index) => {
-                const speed = (index + 1) * 0.1;
-                shape.style.transform = `translateY(${scrolled * speed}px)`;
+            const parallaxBgs = document.querySelectorAll('.parallax-bg');
+            parallaxBgs.forEach(bg => {
+                // Calculate rate based on element's position to avoid all moving identically
+                const rect = bg.getBoundingClientRect();
+                const elementTop = rect.top + scrolled;
+                let rate = (scrolled - elementTop) * 0.2;
+                // Optional: Clamp the rate to prevent extreme movement if elements are far off-screen
+                // rate = Math.max(-100, Math.min(100, rate)); // Example clamp
+                bg.style.transform = `translateY(${rate}px)`;
             });
         });
 
@@ -663,6 +1536,25 @@
             card.style.transition = 'all 0.6s ease-out';
             cardObserver.observe(card);
         });
+
+        // Timeline animation observer
+        const timelineObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate');
+                }
+            });
+        }, {
+            threshold: 0.3,
+            rootMargin: '0px 0px -50px 0px'
+        });
+
+        // Observe timeline items
+        document.querySelectorAll('.timeline-item').forEach(item => {
+            timelineObserver.observe(item);
+        });
+
+        // Timeline animation observer
     </script>
 </body>
 </html>
