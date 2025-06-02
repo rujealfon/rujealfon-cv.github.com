@@ -166,10 +166,6 @@
             transform: scale(0.8);
         }
 
-        .gsap-rotate-in {
-            opacity: 0;
-            transform: rotate(-10deg) scale(0.8);
-        }
 
         /* Nuxt-inspired design */
         :root {
@@ -179,16 +175,6 @@
             --nuxt-accent: #42b883;
             --nuxt-success: #42b883;
             --nuxt-attention: #EF4444;
-        }
-
-        /* Nuxt-inspired design (legacy section) */
-        :root {
-            --nuxt-dark: #0d1117;
-            --nuxt-canvas: #161b22;
-            --nuxt-surface: #21262d;
-            --nuxt-accent: #42b883;
-            --nuxt-success: #42b883;
-            --nuxt-attention: #d1242f;
         }
 
         /* Timeline styles */
@@ -2367,7 +2353,6 @@
             gsap.set('.gsap-fade-left', { opacity: 0, x: -50 });
             gsap.set('.gsap-fade-right', { opacity: 0, x: 50 });
             gsap.set('.gsap-scale-in', { opacity: 0, scale: 0.8 });
-            gsap.set('.gsap-rotate-in', { opacity: 0, rotation: -10, scale: 0.8 });
 
             // Create master timeline for page load
             const tl = gsap.timeline();
@@ -2419,8 +2404,6 @@
             });
 
 
-            // Create global floating tech logos across all sections
-            // createGlobalFloatingTechLogos(); // TEMPORARILY DISABLED - CAUSING ERROR
 
             // Create section-specific floating tech logos
             createSectionFloatingTechLogos();
@@ -2481,7 +2464,7 @@
 
         // Generic section animation
         function animateSection(section) {
-            const elementsToAnimate = section.querySelectorAll('.gsap-fade-up, .gsap-fade-left, .gsap-fade-right, .gsap-scale-in, .gsap-rotate-in');
+            const elementsToAnimate = section.querySelectorAll('.gsap-fade-up, .gsap-fade-left, .gsap-fade-right, .gsap-scale-in');
 
             gsap.to(elementsToAnimate, {
                 duration: 0.8,
@@ -2719,7 +2702,6 @@
                 });
             }
 
-            console.log('✅ Enhanced Skill Progress animations with scroll-based fade initialized');
         }
 
         // Floating icons around profile image
@@ -3003,334 +2985,6 @@
             createOrganizedLayout(contactBlocks, 'contact');
         }
 
-        // Create global floating tech logos across all sections
-        function createGlobalFloatingTechLogos() {
-            // Organize logos by section theme
-            const sectionLogos = {
-                hero: [
-                    // Core Frontend Technologies
-                { icon: 'fab fa-js-square', color: '#f7df1e', name: 'JavaScript' },
-                { icon: 'fab fa-vuejs', color: '#4fc08d', name: 'Vue.js' },
-                { icon: 'fab fa-html5', color: '#e34f26', name: 'HTML5' },
-                { icon: 'fab fa-css3-alt', color: '#1572b6', name: 'CSS3' },
-                { icon: 'fab fa-react', color: '#61dafb', name: 'React' },
-                { icon: 'fab fa-angular', color: '#dd0031', name: 'Angular' },
-                    { icon: 'fab fa-sass', color: '#cc6699', name: 'Sass' },
-                    { icon: 'fab fa-bootstrap', color: '#7952b3', name: 'Bootstrap' },
-                    { icon: 'fab fa-less', color: '#1d365d', name: 'Less' },
-                    { icon: 'fab fa-node-js', color: '#68a063', name: 'Node.js' },
-                { icon: 'fab fa-npm', color: '#cb3837', name: 'NPM' },
-                    { icon: 'fab fa-yarn', color: '#2c8ebb', name: 'Yarn' },
-                ],
-                about: [
-                    // Development Tools & Environment
-                    { icon: 'fas fa-code', color: '#007acc', name: 'VS Code' },
-                    { icon: 'fab fa-git-alt', color: '#f05032', name: 'Git' },
-                { icon: 'fab fa-github', color: '#333', name: 'GitHub' },
-                    { icon: 'fab fa-gitlab', color: '#fc6d26', name: 'GitLab' },
-                { icon: 'fab fa-chrome', color: '#4285f4', name: 'Chrome' },
-                    { icon: 'fab fa-firefox', color: '#ff7139', name: 'Firefox' },
-                    { icon: 'fas fa-terminal', color: '#4caf50', name: 'Terminal' },
-                    { icon: 'fab fa-codepen', color: '#000', name: 'CodePen' },
-                    { icon: 'fab fa-stack-overflow', color: '#f48024', name: 'Stack Overflow' },
-                { icon: 'fab fa-figma', color: '#f24e1e', name: 'Figma' },
-                    { icon: 'fab fa-sketch', color: '#f7b500', name: 'Sketch' },
-                    { icon: 'fab fa-adobe', color: '#ff0000', name: 'Adobe' },
-                ],
-                projects: [
-                    // Project Technologies & Frameworks
-                    { icon: 'fab fa-php', color: '#777bb4', name: 'PHP' },
-                    { icon: 'fab fa-python', color: '#3776ab', name: 'Python' },
-                    { icon: 'fab fa-java', color: '#ed8b00', name: 'Java' },
-                    { icon: 'fas fa-cube', color: '#fbf0df', name: 'Webpack' },
-                    { icon: 'fab fa-gulp', color: '#eb4a4b', name: 'Gulp' },
-                    { icon: 'fab fa-wordpress', color: '#21759b', name: 'WordPress' },
-                    { icon: 'fab fa-shopify', color: '#95bf47', name: 'Shopify' },
-                    { icon: 'fab fa-drupal', color: '#0073ba', name: 'Drupal' },
-                    { icon: 'fab fa-magento', color: '#ee672f', name: 'Magento' },
-                    { icon: 'fab fa-android', color: '#3ddc84', name: 'Android' },
-                    { icon: 'fab fa-app-store', color: '#0d7377', name: 'App Store' },
-                    { icon: 'fab fa-google-play', color: '#01875f', name: 'Google Play' },
-                    { icon: 'fab fa-stripe', color: '#635bff', name: 'Stripe' },
-                    { icon: 'fab fa-paypal', color: '#00457c', name: 'PayPal' },
-                    { icon: 'fab fa-cc-visa', color: '#1a1f71', name: 'Visa' },
-                ],
-                experience: [
-                    // Enterprise & Professional Tools
-                    { icon: 'fab fa-docker', color: '#2496ed', name: 'Docker' },
-                    { icon: 'fab fa-jenkins', color: '#d4b232', name: 'Jenkins' },
-                    { icon: 'fas fa-server', color: '#4caf50', name: 'CI/CD' },
-                    { icon: 'fab fa-aws', color: '#ff9900', name: 'AWS' },
-                    { icon: 'fab fa-google', color: '#4285f4', name: 'Google Cloud' },
-                    { icon: 'fab fa-microsoft', color: '#00a1f1', name: 'Azure' },
-                    { icon: 'fab fa-digital-ocean', color: '#0080ff', name: 'DigitalOcean' },
-                    { icon: 'fab fa-cloudflare', color: '#f38020', name: 'Cloudflare' },
-                    { icon: 'fab fa-bitbucket', color: '#0052cc', name: 'Bitbucket' },
-                    { icon: 'fas fa-database', color: '#336791', name: 'PostgreSQL' },
-                    { icon: 'fas fa-database', color: '#e47911', name: 'MySQL' },
-                    { icon: 'fas fa-leaf', color: '#4db33d', name: 'MongoDB' },
-                    { icon: 'fab fa-windows', color: '#0078d4', name: 'Windows' },
-                    { icon: 'fab fa-apple', color: '#999', name: 'macOS' },
-                    { icon: 'fab fa-linux', color: '#fcc624', name: 'Linux' },
-                    { icon: 'fab fa-ubuntu', color: '#e95420', name: 'Ubuntu' },
-                ],
-                contact: [
-                    // Communication & Collaboration
-                    { icon: 'fab fa-slack', color: '#4a154b', name: 'Slack' },
-                    { icon: 'fab fa-discord', color: '#5865f2', name: 'Discord' },
-                    { icon: 'fab fa-teams', color: '#6264a7', name: 'Teams' },
-                    { icon: 'fab fa-trello', color: '#0079bf', name: 'Trello' },
-                    { icon: 'fab fa-jira', color: '#0052cc', name: 'Jira' },
-                    { icon: 'fas fa-envelope', color: '#ea4335', name: 'Email' },
-                    { icon: 'fas fa-phone', color: '#34a853', name: 'Phone' },
-                    { icon: 'fas fa-globe', color: '#4285f4', name: 'Web' },
-                    { icon: 'fab fa-linkedin', color: '#0077b5', name: 'LinkedIn' },
-                    { icon: 'fab fa-twitter', color: '#1da1f2', name: 'Twitter' },
-                    { icon: 'fab fa-instagram', color: '#e4405f', name: 'Instagram' },
-                    { icon: 'fab fa-facebook', color: '#1877f2', name: 'Facebook' },
-                ]
-            };
-
-            // Get viewport and document dimensions
-            const viewportHeight = window.innerHeight;
-            const documentHeight = Math.max(
-                document.body.scrollHeight,
-                document.body.offsetHeight,
-                document.documentElement.clientHeight,
-                document.documentElement.scrollHeight,
-                document.documentElement.offsetHeight
-            );
-
-            // Define sections with their approximate positions
-            const sections = [
-                { name: 'hero', start: 0, end: viewportHeight, logos: sectionLogos.hero },
-                { name: 'about', start: viewportHeight, end: viewportHeight * 2, logos: sectionLogos.about },
-                { name: 'projects', start: viewportHeight * 2, end: viewportHeight * 3.5, logos: sectionLogos.projects },
-                { name: 'experience', start: viewportHeight * 3.5, end: viewportHeight * 5, logos: sectionLogos.experience },
-                { name: 'contact', start: viewportHeight * 5, end: documentHeight, logos: sectionLogos.contact }
-            ];
-
-            let totalLogosCreated = 0;
-
-            sections.forEach((section, sectionIndex) => {
-                const sectionLogos = section.logos;
-
-                sectionLogos.forEach((logo, logoIndex) => {
-                const element = document.createElement('div');
-
-                    // Randomize properties for variety
-                    const randomSize = 2.2 + Math.random() * 1.8; // 2.2rem to 4rem
-                    const randomOpacity = 0.15 + Math.random() * 0.20; // 0.15 to 0.35 (very visible)
-                    const randomHoverOpacity = 0.5 + Math.random() * 0.4; // 0.5 to 0.9
-
-                    element.innerHTML = `<i class="${logo.icon}" style="color: ${logo.color}; font-size: ${randomSize}rem;"></i>`;
-                    element.className = 'absolute transition-all duration-500 pointer-events-auto cursor-pointer';
-                    element.title = `${logo.name} (${section.name.toUpperCase()} section)`;
-                    element.style.opacity = randomOpacity;
-
-                    // Grid distribution within each section
-                    const cols = Math.ceil(Math.sqrt(sectionLogos.length));
-                    const rows = Math.ceil(sectionLogos.length / cols);
-
-                    const colIndex = logoIndex % cols;
-                    const rowIndex = Math.floor(logoIndex / cols);
-
-                    // Calculate position within section
-                    const sectionHeight = section.end - section.start;
-                    const cellWidth = 85 / cols; // 85% width divided by columns
-                    const cellHeight = sectionHeight / rows;
-
-                    // Position with randomness within the cell
-                    const baseX = 7.5 + (colIndex * cellWidth) + (Math.random() * cellWidth * 0.7);
-                    const baseY = section.start + (rowIndex * cellHeight) + (Math.random() * cellHeight * 0.7);
-
-                    // Ensure logos stay within bounds
-                    const finalX = Math.max(3, Math.min(97, baseX));
-                    const finalY = Math.max(section.start + 30, Math.min(section.end - 100, baseY));
-
-                element.style.left = finalX + '%';
-                    element.style.top = finalY + 'px';
-                    element.style.position = 'absolute';
-
-                    // Random initial rotation
-                    const initialRotation = Math.random() * 360;
-                    element.style.transform = `rotate(${initialRotation}deg)`;
-
-                container.appendChild(element);
-                    totalLogosCreated++;
-
-                    // Section-specific entrance timing
-                    const sectionDelay = sectionIndex * 0.3; // Stagger section entrances
-                    const entranceDelay = sectionDelay + (logoIndex * 0.08); // Stagger within section
-                    const entranceDirection = Math.random() > 0.5 ? 1 : -1;
-                    const entranceDuration = 0.8 + Math.random() * 0.5;
-
-                gsap.fromTo(element,
-                        {
-                            opacity: 0,
-                            scale: 0.3 + Math.random() * 0.2,
-                            rotation: initialRotation + (90 * entranceDirection),
-                            y: (Math.random() - 0.5) * 40
-                        },
-                        {
-                            opacity: randomOpacity,
-                            scale: 0.9 + Math.random() * 0.2,
-                            rotation: initialRotation,
-                            y: 0,
-                            duration: entranceDuration,
-                            delay: entranceDelay,
-                            ease: "back.out(1.2)"
-                        }
-                    );
-
-                    // Section-themed animation variations
-                    let floatStyle = {};
-                    switch(section.name) {
-                        case 'hero':
-                            // Energetic floating for hero
-                            floatStyle = {
-                                amplitudeY: 20 + Math.random() * 30,
-                                amplitudeX: 15 + Math.random() * 25,
-                                durationY: 3 + Math.random() * 3,
-                                durationX: 4 + Math.random() * 4
-                            };
-                            break;
-                        case 'about':
-                            // Gentle, professional floating
-                            floatStyle = {
-                                amplitudeY: 10 + Math.random() * 20,
-                                amplitudeX: 8 + Math.random() * 15,
-                                durationY: 5 + Math.random() * 3,
-                                durationX: 6 + Math.random() * 4
-                            };
-                            break;
-                        case 'projects':
-                            // Dynamic, creative floating
-                            floatStyle = {
-                                amplitudeY: 15 + Math.random() * 25,
-                                amplitudeX: 12 + Math.random() * 20,
-                                durationY: 4 + Math.random() * 3,
-                                durationX: 5 + Math.random() * 3
-                            };
-                            break;
-                        case 'experience':
-                            // Steady, reliable floating
-                            floatStyle = {
-                                amplitudeY: 8 + Math.random() * 15,
-                                amplitudeX: 6 + Math.random() * 12,
-                                durationY: 6 + Math.random() * 4,
-                                durationX: 7 + Math.random() * 5
-                            };
-                            break;
-                        case 'contact':
-                            // Inviting, approachable floating
-                            floatStyle = {
-                                amplitudeY: 12 + Math.random() * 20,
-                                amplitudeX: 10 + Math.random() * 18,
-                                durationY: 4 + Math.random() * 2,
-                                durationX: 5 + Math.random() * 3
-                            };
-                            break;
-                    }
-
-                    // Apply floating animations
-                gsap.to(element, {
-                        y: -floatStyle.amplitudeY + Math.random() * (floatStyle.amplitudeY * 2),
-                        duration: floatStyle.durationY,
-                    repeat: -1,
-                    yoyo: true,
-                    ease: "power1.inOut",
-                        delay: Math.random() * 3
-                });
-
-                gsap.to(element, {
-                        x: -floatStyle.amplitudeX + Math.random() * (floatStyle.amplitudeX * 2),
-                        duration: floatStyle.durationX,
-                    repeat: -1,
-                    yoyo: true,
-                    ease: "power1.inOut",
-                        delay: Math.random() * 4
-                });
-
-                    // Rotation based on section theme
-                    const rotationSpeed = section.name === 'hero' ? 10 + Math.random() * 15 : 20 + Math.random() * 25;
-                    const rotationDirection = Math.random() > 0.5 ? 360 : -360;
-
-                gsap.to(element, {
-                        rotation: initialRotation + rotationDirection,
-                        duration: rotationSpeed,
-                    repeat: -1,
-                    ease: "none"
-                });
-
-                    // Breathing effect
-                    const pulseScale = 1.02 + Math.random() * 0.06;
-                    const pulseDuration = 3 + Math.random() * 3;
-
-                gsap.to(element, {
-                        scale: pulseScale,
-                        duration: pulseDuration,
-                    repeat: -1,
-                    yoyo: true,
-                    ease: "power1.inOut",
-                        delay: Math.random() * 5
-                    });
-
-                    // Opacity twinkling
-                    gsap.to(element, {
-                        opacity: randomOpacity * 0.7,
-                        duration: 2 + Math.random() * 3,
-                        repeat: -1,
-                        yoyo: true,
-                        ease: "power2.inOut",
-                        delay: Math.random() * 8
-                    });
-
-                    // Enhanced hover interactions
-                element.addEventListener('mouseenter', () => {
-                        const hoverScale = 1.4 + Math.random() * 0.4;
-                        const hoverRotation = Math.random() * 60 - 30;
-
-                    gsap.to(element, {
-                            scale: hoverScale,
-                            opacity: randomHoverOpacity,
-                            rotation: `+=${hoverRotation}`,
-                            duration: 0.25,
-                        ease: "power2.out"
-                    });
-                });
-
-                element.addEventListener('mouseleave', () => {
-                    gsap.to(element, {
-                        scale: 1,
-                            opacity: randomOpacity,
-                            duration: 0.35,
-                        ease: "power2.out"
-                    });
-                });
-
-                    // Parallax effect
-                    const parallaxStrength = -15 - Math.random() * 25;
-
-                    gsap.to(element, {
-                        yPercent: parallaxStrength,
-                        ease: "none",
-                        scrollTrigger: {
-                            trigger: "body",
-                            start: "top bottom",
-                            end: "bottom top",
-                            scrub: true
-                        }
-                    });
-                });
-            });
-
-            // Enhanced debugging info
-            console.log(`Created ${totalLogosCreated} floating tech logos across ${sections.length} sections:`);
-            sections.forEach(section => {
-                console.log(`  ${section.name.toUpperCase()}: ${section.logos.length} logos`);
-            });
-        }
 
         // Helper function to convert hex to rgb
         function hexToRgb(hex) {
@@ -3376,13 +3030,11 @@
 
         // Create section-specific floating tech logos
         function createSectionFloatingTechLogos() {
-            console.log('🚀 Starting to create section-specific floating tech logos...');
 
             // First, let's verify all containers exist
             const requiredContainers = ['hero', 'about', 'projects', 'experience', 'contact'];
             requiredContainers.forEach(sectionName => {
                 const container = document.querySelector(`.floating-tech-logos-${sectionName}`);
-                console.log(`📦 Container for ${sectionName}:`, container ? '✅ Found' : '❌ Not found');
             });
 
             // Organize logos by section theme
@@ -3481,7 +3133,6 @@
                     return;
                 }
 
-                console.log(`📦 Found container for ${sectionName}:`, container);
                 const logos = sectionLogos[sectionName];
 
                 logos.forEach((logo, logoIndex) => {
@@ -3527,7 +3178,6 @@
                     container.appendChild(element);
                     totalLogosCreated++;
 
-                    console.log(`✅ Created logo ${logoIndex + 1}/${logos.length} for ${sectionName}: ${logo.name} at ${finalX.toFixed(1)}%, ${finalY.toFixed(1)}%`);
 
                     // Section-specific entrance timing
                     const sectionDelay = sectionIndex * 0.5; // Stagger section entrances more
@@ -3537,7 +3187,7 @@
 
                     gsap.fromTo(element,
                         {
-                opacity: 0,
+                            opacity: 0,
                             scale: 0.2 + Math.random() * 0.3,
                             rotation: initialRotation + (120 * entranceDirection),
                             y: (Math.random() - 0.5) * 60
@@ -3607,8 +3257,8 @@
                     gsap.to(element, {
                         y: -floatStyle.amplitudeY + Math.random() * (floatStyle.amplitudeY * 2),
                         duration: floatStyle.durationY,
-                repeat: -1,
-                yoyo: true,
+                        repeat: -1,
+                        yoyo: true,
                         ease: "power1.inOut",
                         delay: Math.random() * 3
                     });
@@ -3697,11 +3347,9 @@
                     });
                 });
 
-                console.log(`✅ ${sectionName.toUpperCase()}: Created ${logos.length} logos`);
             });
 
             // Enhanced debugging info
-            console.log(`🎯 Created ${totalLogosCreated} floating tech logos across ${Object.keys(sectionLogos).length} sections`);
         }
 
         // Typewriter effect initialization
@@ -3809,7 +3457,6 @@
 
             // Start typewriter effect with delay
             setTimeout(typeWriter, 1000);
-            console.log('✅ Typewriter effect initialized with', enhancedMessages.length, 'messages');
         }
 
         // Setup interactive elements
@@ -4131,7 +3778,6 @@
             // Initialize navigation state
             handleScroll();
 
-            console.log('✅ Enhanced cyberpunk navigation initialized');
         }
 
         // Navigation Particle System
@@ -4242,14 +3888,11 @@
                 initParticles();
             });
 
-            console.log('✅ Navigation particle system initialized');
         }
 
-        console.log('✅ Enhanced cyberpunk navigation initialized');
 
         // Enhanced Timeline Animations
         function initTimelineAnimations() {
-            console.log('🎬 Initializing timeline animations...');
 
             // Set initial states for timeline elements
             gsap.set('.timeline-item', {
@@ -4482,7 +4125,6 @@
                 );
             });
 
-            console.log('✅ Timeline animations initialized');
         }
 
         // Enhanced Featured Projects section animations with scroll-based fade
@@ -4647,7 +4289,6 @@
                 });
             });
 
-            console.log('✅ Enhanced Featured Projects animations initialized with scroll-based fade');
         }
 
         // Enhanced Contact Section Animations
@@ -4899,7 +4540,6 @@
                 });
             }
 
-            console.log('✅ Enhanced Contact Section animations initialized with scroll-based fade');
         }
     </script>
 </body>
